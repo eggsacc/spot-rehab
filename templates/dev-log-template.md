@@ -1,0 +1,53 @@
+****
+**Date:** <font style="color:tomato; font-family:Consolas;">DD-MM-YYYY</font>
+**Duration:** _e.g. 4hrs_
+**Present:** _who worked this session_
+**Subsystem:** _e.g. 🔋 Power & Battery — should match a row in the README status board_
+**Outcome:** 🔧 WIP <!-- ✅ Pass · ❌ Fail · 🔧 WIP — remember to update the README board to match -->
+
+**Objective:**
+>_What we set out to do this session (1–2 lines)._
+
+**Resources:**
+>[Resource name](https://link)
+>[Resource name](https://link)
+
+****
+## TL;DR
+****
+_Write this last. 1–3 sentences: what we did and the single most important outcome._
+
+## Work done
+****
+_The play-by-play — the steps you performed. Keep specs and measurements out of here; those go in Findings._
+
+#### <Task / area title>
+-
+
+#### <Task / area title>
+-
+
+## Findings & data
+****
+_Hard facts worth extracting: measurements, part numbers, specs, fault readings — the stuff you'll cite in the report later._
+-
+
+## Decisions
+****
+_For each decision, record what you chose, why, and what you ruled out._
+- **Decision:**
+  **Why:**
+  **Alternatives considered:**
+
+## Roadblocks
+****
+- _Anything that blocked progress or is still unresolved._
+
+## Next steps
+****
+- [ ] _Action item for next session_
+- [ ]
+
+## Media
+****
+![[filename.jpg]]
