@@ -1,9 +1,13 @@
-****
+# Battery module complete disassembly
 **Date:** <font style="color:tomato; font-family:Consolas;">21-05-2026</font>
+
 **Duration:** 7hrs
-**Present:** _(add)_
+
+**People:** Yizhang
+
 **Subsystem:** 🔋 Power & Battery
-**Outcome:** 🔧 WIP
+
+**Outcome:** ✅ Pass
 
 **Objective:**
 >Disassemble the lithium cells from the BMS and source new cells.
@@ -14,11 +18,9 @@
 
 ****
 ## TL;DR
-****
-Fully separated the two 7s4p cell packs from the BMS — removing glued power cables, the CAN cable, spot-welded nickel strips, rivets, and the thermistor strips. Confirmed the cell type (Samsung INR18650-30Q, 3000 mAh, 15 A). Started sourcing replacements: local stores don't stock the exact cell, so awaiting quotes (Falcon PEV for original Samsung; others for alternatives).
+Fully separated the two 7s4p cell packs from the BMS - removing glued power cables, the CAN cable, spot-welded nickel strips, rivets, and the thermistor strips. Confirmed the cell type (Samsung INR18650-30Q, 3000 mAh, 15 A). Started sourcing replacements: local stores don't stock the exact cell, awaiting quotes (Falcon PEV for original Samsung; others for alternatives).
 
 ## Work done
-****
 #### Disassemble power & CAN cables
 - Removed the tough glue blob holding the power cables — cut it into smaller chunks and pried it off bit by bit.
 - Unscrewed the power cables and unplugged the CAN cable, then pried off the plastic insulator covering 3 of the battery pads.
@@ -38,41 +40,35 @@ Fully separated the two 7s4p cell packs from the BMS — removing glued power ca
 - Strips are labelled A and B to track their original side (likely interchangeable since the PCBs are identical, but kept just in case).
 
 ## Findings & data
-****
 - **Cell type:** Samsung INR18650-30Q (per BD's SDS) — 3000 mAh, 15 A discharge / 30 A peak.
 - The 56 cells are arranged as 2× 7s4p packs, labelled A and B.
 - Nickel strips are spot-welded to the BMS pads; pads will need post-processing (residual nickel bumps).
 - Thermistors: 5 SMD NTC per pack on a kapton-taped flexible PCB, thermal-adhesive bonded.
 
 ## Decisions
-****
 - **Decision (tentative):** Source the original Samsung INR18650-30Q from Falcon PEV.
   **Why:** Cheapest source found for the original cell, keeping the spec identical to stock.
   **Alternatives considered:** LG HG2 (same 3000 mAh capacity, slightly higher 20 A rating; ~$663 for 56 on Shopee); Samsung INR18650-35E from Sim Lim (higher capacity & amperage, but pricier).
   *(Pending Falcon PEV's reply/quote.)*
 
 ## Roadblocks
-****
 - Lack of local suppliers for the exact replacement cell.
 
 ## Next steps
-****
-- [ ] Wait for response from Falcon PEV.
-- [ ] Wait for response from the global 18650 battery shop.
-- [ ] Alternatively, find a closely-matched modern lithium cell as a replacement.
+- [x] Wait for response from Falcon PEV.
+- [x] Wait for response from the global 18650 battery shop.
 
 ## Media
-****
-> 🖼️ *Images to be added (copy originals over later):*
-- `IMG_20260521_121830345.jpg`
-- `IMG_20260521_124027876.jpg`
-- `IMG_20260521_124113245.jpg`
-- `IMG_20260521_134440796.jpg`
-- `IMG_20260521_135625072.jpg`
-- `IMG_20260521_135124446.jpg`
-- `IMG_20260521_135810683.jpg`
-- `IMG_20260521_140552170.jpg`
-- `IMG_20260521_105100286 1.jpg`
-- `IMG_20260521_110136668.jpg`
-- `IMG_20260521_105122540.jpg`
-- `IMG_20260521_141908595.jpg`
+![img](assets/pack-bottom.jpg)
+![img](assets/power-connectors.jpg)
+![img](assets/battery-casing.jpg)
+![img](assets/battery-layout.jpg)
+![img](assets/black-connector.jpg)
+![img](assets/bms-no-cable.jpg)
+![img](assets/black-rivet.jpg)
+![img](assets/jumper-wire.jpg)
+![img](assets/sheared-connectors.jpg)
+![img](assets/battery-gnd-tabs.jpg)
+![img](assets/disassembled-pack.jpg)
+![img](assets/thermisitor-pcb.jpg)
+![img](assets/thermistor-closeup.jpg)
