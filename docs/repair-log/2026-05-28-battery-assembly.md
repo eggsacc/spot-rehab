@@ -37,18 +37,17 @@ Replacement INR18650-30Q cells are inserted into 3D printed spacer and spot weld
 - The spot welder does not seem to work properly with more than 1 nickel strip at a time. It was unable to weld 2 strips stacked together to the battery terminals no matter how much we tried.
 
 ## Decisions
-_For each decision, record what you chose, why, and what you ruled out._
-- **Decision:**
-  **Why:**
-  **Alternatives considered:**
+- —
 
 ## Roadblocks
-- _Anything that blocked progress or is still unresolved._
+- Figuring out optimal settings for spot welding negative terminals. will have to experiment and test out in the next session.
 
 ## Next steps
-- [ ] _Action item for next session_
+- [ ] Finish spot welding both battery packs
+- [ ] spot weld/solder packs onto BMS
 
 
 ## Media
 ![alt text](assets/3D-printed-brackets.jpg)
+![alt text](assets/welded-pack.JPG)
 
