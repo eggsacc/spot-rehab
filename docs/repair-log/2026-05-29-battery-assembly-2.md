@@ -18,7 +18,7 @@
 ****
 ## TL;DR
 
-Continuation of  spot welding of battery pack at Sodion with the help of gooner Wonje. Spot Welder Machine had a transistor fault and halted our progress.
+Continuation of spot welding of battery pack at Sodion with the help of gooner Wonje. Spot Welder Machine had a transistor fault and halted our progress.
 
 ## Work done
 #### Spot welding at Sodion
@@ -40,8 +40,8 @@ Continuation of  spot welding of battery pack at Sodion with the help of gooner 
 - There is a smaller handheld spot welding machine highlighted to us later on that we could use to resume operations but will require some trial and error to see if it will work.
 
 ## Next steps
-- [ ] Finish spot welding both battery packs
-- [ ] spot weld/solder packs onto BMS
+- [x] Finish spot welding both battery packs
+- [x] spot weld/solder packs onto BMS
 
 
 ## Media
