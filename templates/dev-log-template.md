@@ -8,7 +8,7 @@
 
 **Subsystem:** _e.g. 🔋 Power & Battery — should match a row in the README status board_
 
-**Outcome:** 🔧 WIP  ✅ Pass · ❌ Fail · 
+**Outcome:** 🔧 WIP  ✅ Complete · ❌ Fail · 
 
 **Objective:**
 >_What we set out to do this session (1–2 lines)._
@@ -36,17 +36,17 @@ _Hard facts worth extracting: measurements, part numbers, specs, fault readings 
 -
 
 ## Decisions
-_For each decision, record what you chose, why, and what you ruled out._
-- **Decision:**
-  **Why:**
-  **Alternatives considered:**
+>**Decision:**
+
+**Why:**
+
+**Alternatives considered:**
 
 ## Roadblocks
 - _Anything that blocked progress or is still unresolved._
 
 ## Next steps
 - [ ] _Action item for next session_
-- [ ]
 
 ## Media
 ![[filename.jpg]]
