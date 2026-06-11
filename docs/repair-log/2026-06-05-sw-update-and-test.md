@@ -1,5 +1,5 @@
 # Battery diagnostics and Spot update
-**Date:** <font style="color:tomato; font-family:Consolas;">06-05-2026</font>
+**Date:** <font style="color:tomato; font-family:Consolas;">2026-06-05</font>
 
 **Duration:** 5hr
 
@@ -95,8 +95,8 @@ After probing around the DB25 interface connector cover piece to test for contin
 - [ ] Buy 52x lithium cells for 2nd battery pack (have 4 leftover from previous repair).
 - [ ] Optimize battery spacer design.
 - [ ] 3D print new battery spacers.
-- [ ] Contact Unicell Pte. Ltd. for quote to aid in spot welding 2nd pack.
-- [ ] Purchase male DB25 connector & solder connections as DIY port cover.
+- [x] Contact Unicell Pte. Ltd. for quote to aid in spot welding 2nd pack.
+- [x] Purchase male DB25 connector & solder connections as DIY port cover.
 
 ## Media
 [Spot flipper over self-right demo](assets/flipped-self-right.mp4)
