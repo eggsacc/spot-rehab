@@ -59,9 +59,9 @@ Spot welding of BMS onto battery pack, charge test and Spot power on test.
 
 
 ## Media
-![alt text](assets/completed-side.jpg)
-![alt text](assets/manual-spot-welder.jpg)
-![alt text](assets/auto-spot-weld.jpg)
-![alt text](assets/manual-spot-weld.jpg)
-![alt text](assets/repaired-battery-charge-test.jpg)
-![alt text](assets/spot-booting-indicator.jpg)
+![alt text](../assets/completed-side.jpg)
+![alt text](../assets/manual-spot-welder.jpg)
+![alt text](../assets/auto-spot-weld.jpg)
+![alt text](../assets/manual-spot-weld.jpg)
+![alt text](../assets/repaired-battery-charge-test.jpg)
+![alt text](../assets/spot-booting-indicator.jpg)

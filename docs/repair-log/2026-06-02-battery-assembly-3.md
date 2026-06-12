@@ -42,5 +42,5 @@ Continuation of spot welding of battery pack at Sodion with the help of gooner W
 
 
 ## Media
-![alt text](assets/completed-side.jpg)
+![alt text](../assets/completed-side.jpg)
 

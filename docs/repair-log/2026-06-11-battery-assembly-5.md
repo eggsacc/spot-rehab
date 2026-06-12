@@ -37,11 +37,11 @@ Battery stopped working, showing battery fault with all SOC lights blinking when
   
 We did a third test of the voltage across each individual cell groups.
 
-![img](assets/battery-test-3.jpg)
+![img](../assets/battery-test-3.jpg)
 
 From the voltage data, cell groups 1 has an abnormally -0.5V while the other groups are perfectly balanced (even the previous unbalanced ones)
 
-![img](assets/battery-0.5.jpg)
+![img](../assets/battery-0.5.jpg)
 
 The data indicated that cell group 1 was causing the battery fault. The voltage differential was too large/negative voltage was detected triggering the lockout. We hypothesised various failure modes before narrowing down to the most possible one.
 1. No visible damage on the BMS indicates likely not a blown MOSFET, resistor etc.
@@ -50,8 +50,8 @@ The data indicated that cell group 1 was causing the battery fault. The voltage 
 
 We decided to probe the cells directly to check for cell degradation. The negative terminal was disconnected and when probing the cell group 1 separate from the BMS, we got a voltage reading of 3.71V. When probing on the negative terminal BMS pad (P2) to the positive terminal of cell group 1, we got -0.5V.
 
-![img](assets/battery-0.5.jpg)
-![img](assets/battery-3.7.jpg)
+![img](../assets/battery-0.5.jpg)
+![img](../assets/battery-3.7.jpg)
 
 Upon further testing, we realised we do not get 3.71V all the time when probing the cells directly. We only get it if we press the nickel strips on the negative terminal down very hard. This indicated to us that the weld joint on the negative terminal is the broken one.
 

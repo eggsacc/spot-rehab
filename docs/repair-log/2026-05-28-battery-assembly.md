@@ -48,6 +48,6 @@ Replacement INR18650-30Q cells are inserted into 3D printed spacer and spot weld
 
 
 ## Media
-![alt text](assets/3D-printed-brackets.jpg)
-![alt text](assets/welded-pack.JPG)
+![alt text](../assets/3D-printed-brackets.jpg)
+![alt text](../assets/welded-pack.JPG)
 
