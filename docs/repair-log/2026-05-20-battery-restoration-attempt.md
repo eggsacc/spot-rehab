@@ -57,8 +57,8 @@ Opened the battery module and found the cells deeply over-discharged (~90 mV vs.
 - [x] Send Wonje the replacement battery quantity & SKU (standard 14s4p, replaceable by spot-welding onto the original BMS pads).
 
 ## Media
-![controller](assets/royston-charge-test.jpg)
-![controller](assets/charger-static.jpg)
-![controller](assets/charge-test-2.jpg)
-![controller](assets/soc-initial.jpg)
+![controller](../assets/royston-charge-test.jpg)
+![controller](../assets/charger-static.jpg)
+![controller](../assets/charge-test-2.jpg)
+![controller](../assets/soc-initial.jpg)
 
