@@ -11,7 +11,7 @@
 **Outcome:** ✅ Complete
 
 **Objective:**
->Repair broken flat flex cable for SoC on battery pack #2. Further diagnose left hip motor issue.
+>Repair broken flat flex cable for SoC on battery pack #2, concluding battery repair. Further diagnose left hip motor issue.
 
 **Resources:**
 NIL

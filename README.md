@@ -21,13 +21,13 @@ This repository is the shared engineering logbook for our UROP project: bringing
 ## 🤖 Robot Status
 
 > [!WARNING]
-> **❌ Non-operational** — battery pack #1 rebuilt & charging; robot still down pending hind-leg actuator diagnosis.
+> **❌ Non-operational** Robot still down pending hind-leg actuator repair.
 
 | | |
 |---|---|
-| 📅 **Last session** | 11-06-2026 — Battery fault diagnosis & re-weld (full charge achieved) |
-| 🎯 **Current focus** | 🦿 Actuators & Legs (hind-leg motor) · 🔋 2nd battery pack |
-| 🚧 **Blocking issue** | Left hind leg fails self-right; 2nd battery pack pending improved brackets |
+| 📅 **Last session** | 18-06-2026 — Battery repair complete and motor diagnostics |
+| 🎯 **Current focus** | 🦿 Actuators & Legs (hind-leg motor) |
+| 🚧 **Blocking issue** | Left hind leg fails self-right |
 
 ---
 
@@ -35,14 +35,14 @@ This repository is the shared engineering logbook for our UROP project: bringing
 
 | Subsystem | Flag | Active | Notes |
 |-----------|:----:|:------:|-------|
-| 🔋 **Power & Battery** | 🔧 `WIP` |  | Pack #1 rebuilt & verified (full charge) — see [battery repair report](docs/subsystems/battery/battery-repair.md); 2nd pack pending |
+| 🔋 **Power & Battery** | ✅ Complete |  | Pack #1, #2 rebuilt & verified (full charge, firmware updated) |
 | 🦿 **Actuators & Legs** | 🔧 `WIP` | 👈 | Left hind leg fails self-right; actuators move but motion stuck — under investigation |
 | 🧠 **Compute & Mainboard** | ⬜ `N/A` |  | Not yet assessed |
 | 📷 **Sensors & Cameras** | ⬜ `N/A` |  | Not yet assessed |
 | 📡 **Comms & Networking** | ⬜ `N/A` |  | Not yet assessed |
 | 🦴 **Chassis & Mechanical** | ⬜ `N/A` |  | Not yet assessed |
 
-<sub>**Flags** — ✅ `PASS` functional & verified · ❌ `FAIL` confirmed fault, needs repair · 🔧 `WIP` currently being worked on · ⬜ `N/A` not yet assessed</sub>
+<sub>**Flags** — ✅ `Complete` functional & verified · ❌ `FAIL` confirmed fault, needs repair · 🔧 `WIP` currently being worked on · ⬜ `N/A` not yet assessed</sub>
 
 ---
 
