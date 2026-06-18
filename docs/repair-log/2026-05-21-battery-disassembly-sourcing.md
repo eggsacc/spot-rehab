@@ -7,7 +7,7 @@
 
 **Subsystem:** 🔋 Power & Battery
 
-**Outcome:** ✅ Pass
+**Outcome:** ✅ Complete
 
 **Objective:**
 >Disassemble the lithium cells from the BMS and source new cells.
@@ -59,16 +59,16 @@ Fully separated the two 7s4p cell packs from the BMS - removing glued power cabl
 - [x] Wait for response from the global 18650 battery shop.
 
 ## Media
-![img](assets/pack-bottom.jpg)
-![img](assets/power-connectors.jpg)
-![img](assets/battery-casing.jpg)
-![img](assets/battery-layout.jpg)
-![img](assets/black-connector.jpg)
-![img](assets/bms-no-cable.jpg)
-![img](assets/black-rivet.jpg)
-![img](assets/jumper-wire.jpg)
-![img](assets/sheared-connectors.jpg)
-![img](assets/battery-gnd-tabs.jpg)
-![img](assets/disassembled-pack.jpg)
-![img](assets/thermisitor-pcb.jpg)
-![img](assets/thermistor-closeup.jpg)
+![img](../assets/pack-bottom.jpg)
+![img](../assets/power-connectors.jpg)
+![img](../assets/battery-casing.jpg)
+![img](../assets/battery-layout.jpg)
+![img](../assets/black-connector.jpg)
+![img](../assets/bms-no-cable.jpg)
+![img](../assets/black-rivet.jpg)
+![img](../assets/jumper-wire.jpg)
+![img](../assets/sheared-connectors.jpg)
+![img](../assets/battery-gnd-tabs.jpg)
+![img](../assets/disassembled-pack.jpg)
+![img](../assets/thermisitor-pcb.jpg)
+![img](../assets/thermistor-closeup.jpg)

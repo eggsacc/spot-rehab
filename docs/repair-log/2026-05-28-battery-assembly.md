@@ -8,7 +8,7 @@
 
 **Subsystem:** 🔋 Power & Battery
 
-**Outcome:** ✅ Pass
+**Outcome:** ✅ Complete
 
 **Objective:**
 >3D print battery spacers, spot-weld the replacement batteries, connect to BMS for testing
@@ -48,6 +48,6 @@ Replacement INR18650-30Q cells are inserted into 3D printed spacer and spot weld
 
 
 ## Media
-![alt text](assets/3D-printed-brackets.jpg)
-![alt text](assets/welded-pack.JPG)
+![alt text](../assets/3D-printed-brackets.jpg)
+![alt text](../assets/welded-pack.JPG)
 

@@ -8,7 +8,7 @@
 
 **Subsystem:** 🔋 Power & Battery
 
-**Outcome:** ✅ Pass
+**Outcome:** ✅ Complete
 
 **Objective:**
 >3D print battery spacers, spot-weld the replacement batteries, connect to BMS for testing
@@ -45,5 +45,5 @@ Continuation of spot welding of battery pack at Sodion with the help of gooner W
 
 
 ## Media
-![alt text](assets/completed-side.jpg)
+![alt text](../assets/completed-side.jpg)
 

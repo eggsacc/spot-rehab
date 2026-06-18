@@ -7,7 +7,7 @@
 
 **Subsystem:** 🔋 Power & Battery, 🦿 Actuators & Legs, 🧠 Compute & Mainboard
 
-**Outcome:** ✅ Pass
+**Outcome:** ✅ Complete
 
 **Objective:**
 >Diagnose battery charge problem, update Spot firmware and attempt to power up Spot.
@@ -69,7 +69,7 @@ Battery imbalance diagnosed to be due to failed spot welds, Spot robot & control
   
 After the battery stopped charging, the voltage across each individual cell groups are measured and recorded.
 
-![img](assets/cell-voltage.png)
+![img](../assets/cell-voltage.png)
 
 From the voltage data, cell groups 1, 2 and 8 have abnormally high charge while the other groups are perfectly balanced.
 
@@ -79,7 +79,7 @@ Upon inspection, the highlighted cell groups all have a poor spot welded joint p
 
 After probing around the DB25 interface connector cover piece to test for continuity, we found that 4 sets of pins are shorted together in the cover. This turns out to be how Spot detects if a interface port cover is in place, as shorting these pins manually on Spot lifted the no-action warning.
 
-![img](assets/db25-connector.png)
+![img](../assets/db25-connector.png)
 
 ## Decisions
 >**Decision:** Also repair second battery module, with improved bracket design and offload welding to battery company.

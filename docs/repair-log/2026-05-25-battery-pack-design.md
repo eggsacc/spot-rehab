@@ -7,7 +7,7 @@
 
 **Subsystem:** 🔋 Power & Battery
 
-**Outcome:** ✅ Pass
+**Outcome:** ✅ Complete
 
 **Objective:**
 >Research & understand safety precautions when working with DIY lithium battery packs.

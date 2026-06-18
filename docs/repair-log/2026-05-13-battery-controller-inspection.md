@@ -7,7 +7,7 @@
 
 **Subsystem:** 🔋 Power & Battery
 
-**Outcome:** ✅ Pass
+**Outcome:** ✅ Complete
 
 **Objective:**
 >Attempt to charge the battery and test the controller.
@@ -55,6 +55,6 @@ Both Spot batteries fail to charge — the charger flashes red briefly then goes
 - [x] Attempt to jump-start / trickle-charge the cells.
 
 ## Media
-![controller](assets/controller.jpg)
-![battery charge test](assets/charge-test.jpg)
+![controller](../assets/controller.jpg)
+![battery charge test](../assets/charge-test.jpg)
 
