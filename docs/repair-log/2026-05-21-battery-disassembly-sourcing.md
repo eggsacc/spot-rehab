@@ -7,7 +7,7 @@
 
 **Subsystem:** 🔋 Power & Battery
 
-**Outcome:** ✅ Pass
+**Outcome:** ✅ Complete
 
 **Objective:**
 >Disassemble the lithium cells from the BMS and source new cells.
