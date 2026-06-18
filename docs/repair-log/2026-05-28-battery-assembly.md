@@ -43,8 +43,8 @@ Replacement INR18650-30Q cells are inserted into 3D printed spacer and spot weld
 - Figuring out optimal settings for spot welding negative terminals. will have to experiment and test out in the next session.
 
 ## Next steps
-- [ ] Finish spot welding both battery packs
-- [ ] spot weld/solder packs onto BMS
+- [x] Finish spot welding both battery packs
+- [x] spot weld/solder packs onto BMS
 
 
 ## Media

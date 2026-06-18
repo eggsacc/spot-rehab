@@ -1,11 +1,11 @@
-# Battery diagnostics and Spot update
+# Software update and test
 **Date:** <font style="color:tomato; font-family:Consolas;">2026-06-05</font>
 
 **Duration:** 5hr
 
 **People:** Ming, Yizhang
 
-**Subsystem:** 🔋 Power & Battery, 🧠 Compute & Mainboard
+**Subsystem:** 🔋 Power & Battery, 🦿 Actuators & Legs, 🧠 Compute & Mainboard
 
 **Outcome:** ✅ Complete
 
@@ -99,12 +99,17 @@ After probing around the DB25 interface connector cover piece to test for contin
 - [x] Purchase male DB25 connector & solder connections as DIY port cover.
 
 ## Media
-[Spot flipper over self-right demo](../assets/flipped-self-right.mp4)
+<div style="display: flex; justify-content: center; margin: 2em 0;">
+  <video width="360" height="480" controls>
+    <source src="assets/flipped-self-right.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
 
-![alt text](../assets/jumped-connector.jpg)
-![alt text](../assets/covered-uncovered-ports.jpg)
-![alt text](../assets/cell-v-1.png)
-![alt text](../assets/cell-v-2.png)
-![alt text](../assets/good-weld-resistance.png)
-![alt text](../assets/poor-weld-resistance.png)
-![alt text](../assets/poor-weld.png)
+![alt text](assets/jumped-connector.jpg)
+![alt text](assets/covered-uncovered-ports.jpg)
+![alt text](assets/cell-v-1.png)
+![alt text](assets/cell-v-2.png)
+![alt text](assets/good-weld-resistance.png)
+![alt text](assets/poor-weld-resistance.png)
+![alt text](assets/poor-weld.png)

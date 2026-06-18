@@ -1,11 +1,11 @@
-# Battery diagnostics and Spot update
+# Replacement battery assembly
 **Date:** <font style="color:tomato; font-family:Consolas;">2026-06-11</font>
 
-**Duration:** 5hr
+**Duration:** 6hr
 
 **People:** Ming, Yizhang
 
-**Subsystem:** 🔋 Power & Battery, 🧠 Compute & Mainboard
+**Subsystem:** 🔋 Power & Battery
 
 **Outcome:** ✅ Complete
 
@@ -71,7 +71,6 @@ Hence, our diagnosis of the failure mode was the bad weld joint on the negative 
 - [x] Buy 52x lithium cells for 2nd battery pack (have 4 leftover from previous repair).
 - [x] Optimize battery spacer design.
 - [x] 3D print new battery spacers.
-- [x] Contact Unicell Pte. Ltd. for quote to aid in spot welding 2nd pack.
 - [x] Continue work on diagnosis of motor issue using visualiser in admin console, checking range of motion of leg, and running the diagnostics script
 
 ## Media
