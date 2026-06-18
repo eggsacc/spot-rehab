@@ -7,7 +7,7 @@
 
 **Subsystem:** 🔋 Power & Battery, 🧠 Compute & Mainboard
 
-**Outcome:** 🔧 WIP
+**Outcome:** ✅ Complete
 
 **Objective:**
 >Diagnose battery charge problem, update Spot firmware and attempt to power up Spot.

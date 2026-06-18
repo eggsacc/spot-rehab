@@ -7,7 +7,7 @@
 
 **Subsystem:** 🔋 Power & Battery
 
-**Outcome:** ✅ Pass
+**Outcome:** ✅ Complete
 
 **Objective:**
 >Open the battery pack, measure lithium cell voltages and attempt to trickle-chargee individual cell groups back up to voltage to turn on BMS.

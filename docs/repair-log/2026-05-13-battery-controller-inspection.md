@@ -7,7 +7,7 @@
 
 **Subsystem:** 🔋 Power & Battery
 
-**Outcome:** ✅ Pass
+**Outcome:** ✅ Complete
 
 **Objective:**
 >Attempt to charge the battery and test the controller.
