@@ -52,6 +52,10 @@ Battery pack #2 complete, SoC flex cable repaired and is able to achieve full ch
 - In the 3D model view, the reflected position of the left hind leg is still inaccurate and completely tucked under the robot.
 - The right leg, however, moves as expected and motion was observed from the hip motors.
 
+#### Rear camera failure
+- The rear camera failed to init and produce any BW/RGB/Depth images. These errors were reported by the controller.
+- This was the only camera we plugged into a laptop to view. Maybe doing so altered some settings?
+
 ## Findings & data
 #### Battery pack #2 balance
 - 0.02 as reported in battery statistics under Admin console.
@@ -70,10 +74,18 @@ Battery pack #2 complete, SoC flex cable repaired and is able to achieve full ch
 **Alternatives considered:**
 
 ## Roadblocks
-- _Anything that blocked progress or is still unresolved._
+- Rear camera failure
 
 ## Next steps
-- [ ] _Action item for next session_
+- [ ] Fix rear camera connection
 
 ## Media
-![[filename.jpg]]
+![alt text](../assets/sheared-soc-cable.jpg)
+![alt text](../assets/repaired-soc-cable.jpg)
+![alt text](../assets/double-amputee-spot.jpg)
+![alt text](../assets/driver-exposed.jpg)
+![alt text](../assets/driver-top-view.jpg)
+![alt text](../assets/driver-encoder-side.jpg)
+![alt text](../assets/both-legs-drivers.jpg)
+![alt text](../assets/driver-sockets-inspection.jpg)
+![alt text](../assets/driver-swapped.jpg)
