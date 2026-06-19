@@ -1,13 +1,13 @@
-# Battery diagnostics and Spot update
+# Software update and test
 **Date:** <font style="color:tomato; font-family:Consolas;">2026-06-05</font>
 
 **Duration:** 5hr
 
 **People:** Ming, Yizhang
 
-**Subsystem:** 🔋 Power & Battery, 🧠 Compute & Mainboard
+**Subsystem:** 🔋 Power & Battery, 🦿 Actuators & Legs, 🧠 Compute & Mainboard
 
-**Outcome:** 🔧 WIP
+**Outcome:** ✅ Pass
 
 **Objective:**
 >Diagnose battery charge problem, update Spot firmware and attempt to power up Spot.
@@ -92,14 +92,19 @@ After probing around the DB25 interface connector cover piece to test for contin
 - Unable to fully diagnose Spot motor problem.
 
 ## Next steps
-- [ ] Buy 52x lithium cells for 2nd battery pack (have 4 leftover from previous repair).
-- [ ] Optimize battery spacer design.
-- [ ] 3D print new battery spacers.
+- [x] Buy 52x lithium cells for 2nd battery pack (have 4 leftover from previous repair).
+- [x] Optimize battery spacer design.
+- [x] 3D print new battery spacers.
 - [x] Contact Unicell Pte. Ltd. for quote to aid in spot welding 2nd pack.
 - [x] Purchase male DB25 connector & solder connections as DIY port cover.
 
 ## Media
-[Spot flipper over self-right demo](assets/flipped-self-right.mp4)
+<div style="display: flex; justify-content: center; margin: 2em 0;">
+  <video width="360" height="480" controls>
+    <source src="assets/flipped-self-right.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
 
 ![alt text](assets/jumped-connector.jpg)
 ![alt text](assets/covered-uncovered-ports.jpg)

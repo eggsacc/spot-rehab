@@ -33,7 +33,7 @@ Started replicating the original cell-pack layout in CAD to make a 3D-printable 
 - —
 
 ## Next steps
-- [ ] Assemble replacement battery groups and spot weld together at Sodion with gooner Wonje.
+- [x] Assemble replacement battery groups and spot weld together at Sodion with gooner Wonje.
 
 ## Media
 
