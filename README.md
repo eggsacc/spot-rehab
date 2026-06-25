@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🐾 Spot Repair Log
+# 🐾 Spot Rehabilitation
 
 **Diagnosing & repairing a Boston Dynamics _Spot_ quadruped robot**
 NUS · Undergraduate Research Opportunities Programme (UROP)
@@ -11,17 +11,16 @@ NUS · Undergraduate Research Opportunities Programme (UROP)
 
 ## 📖 About
 
-This repository is the shared engineering logbook for our UROP project: bringing a faulty Boston Dynamics **Spot** robot back to life. Every working session is recorded as a dated **dev log**, and this README is the dashboard — it tracks the health of each subsystem and what we're working on right now.
-
-> [!NOTE]
-> Starting a session? Copy [`templates/dev-log-template.md`](templates/dev-log-template.md), fill it in, and update the **[Subsystem Status](#-subsystem-status)** board below before you finish.
+The Spot robot dog in NUS has not been a very good boi lately. This repository documents the abuse of Spot and hopefully a full recovery 🦴.
 
 ---
 
 ## 🤖 Robot Status
 
-> [!WARNING]
-> **❌ Non-operational** Robot still down pending hind-leg actuator repair.
+> [!WARNING] AMPUTATED
+> **❌🦵🦵 Severely crippled:**  Currently a double amputee 😢😢
+
+![alt text](spot-state.jpg)
 
 | | |
 |---|---|
@@ -38,7 +37,7 @@ This repository is the shared engineering logbook for our UROP project: bringing
 | 🔋 **Power & Battery** | ✅ Complete |  | Pack #1, #2 rebuilt & verified (full charge, firmware updated) |
 | 🦿 **Actuators & Legs** | 🔧 `WIP` | 👈 | Left hind leg fails self-right; actuators move but motion stuck — under investigation |
 | 🧠 **Compute & Mainboard** | ⬜ `N/A` |  | Not yet assessed |
-| 📷 **Sensors & Cameras** | ⬜ `N/A` |  | Not yet assessed |
+| 📷 **Sensors & Cameras** | ❌ `FAIL` |  | Rear depth camera server fails to start |
 | 📡 **Comms & Networking** | ⬜ `N/A` |  | Not yet assessed |
 | 🦴 **Chassis & Mechanical** | ⬜ `N/A` |  | Not yet assessed |
 
@@ -85,24 +84,6 @@ Spot/
         └── software/jazzysetup.md
 ```
 
-> [!TIP]
-> Session logs live in `docs/repair-log/`, named `YYYY-MM-DD-short-objective.md` so they sort chronologically.
-
----
-
-## 📝 Logging a Session
-
-1. **Copy** [`templates/dev-log-template.md`](templates/dev-log-template.md) into `docs/repair-log/`, named `YYYY-MM-DD-short-objective.md`.
-2. **Header** — fill in Date, Duration, Present, Subsystem, and the Outcome flag.
-3. **Body** — split your notes by kind so nothing gets buried:
-   - **Work done** → the steps you took.
-   - **Findings & data** → specs, measurements, part numbers (the stuff you'll cite in the report).
-   - **Decisions** → what you chose, *why*, and what you ruled out.
-4. **Roadblocks** + **Next steps** — use checkboxes for follow-ups.
-5. **Update** the [Subsystem Status](#-subsystem-status) board and the [Repair Log](#-repair-log) index above.
-
----
-
 ## 🔗 References
 
 - [Spot Battery Safety Data Sheets (SDS)](https://support.bostondynamics.com/s/article/Spot-Battery-Safety-Data-Sheets-SDS-49922)
@@ -113,9 +94,9 @@ Spot/
 
 | Name | Role |
 |------|------|
-| _(your name)_ | UROP Researcher |
-| _(partner name)_ | UROP Researcher |
-| _(supervisor)_ | Faculty Supervisor |
+| @eggsacc | UROP Researcher |
+| @Kmyming | UROP Researcher |
+| @NickInSynchronicity | Project Supervisor |
 
 ---
 

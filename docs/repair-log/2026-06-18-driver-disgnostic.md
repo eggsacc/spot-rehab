@@ -67,11 +67,7 @@ Battery pack #2 complete, SoC flex cable repaired and is able to achieve full ch
 - Phase resistance: $0.5\omega$
 
 ## Decisions
->**Decision:**
-
-**Why:**
-
-**Alternatives considered:**
+NIL
 
 ## Roadblocks
 - Rear camera failure
