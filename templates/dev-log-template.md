@@ -6,7 +6,7 @@
 
 **People:** _who worked this session_
 
-**Subsystem:** _e.g. 🔋 Power & Battery — should match a row in the README status board_
+**Subsystem:** 🔋 Power & Battery, 🦿 Actuators & Legs, 🧠 Compute & Mainboard, 📷 Sensors & Cameras
 
 **Outcome:** 🔧 WIP  ✅ Complete · ❌ Fail · 
 
@@ -24,9 +24,6 @@ _Write this last. 1–3 sentences: what we did and the single most important out
 
 ## Work done
 _The play-by-play — the steps you performed. Keep specs and measurements out of here; those go in Findings._
-
-#### <Task / area title>
--
 
 #### <Task / area title>
 -
@@ -49,4 +46,4 @@ _Hard facts worth extracting: measurements, part numbers, specs, fault readings 
 - [ ] _Action item for next session_
 
 ## Media
-![[filename.jpg]]
+
