@@ -86,6 +86,7 @@ Spot/
 
 ## 🔗 References
 
+- [`spot_diagnostics`](https://github.com/Kmyming/spot_diagnostics) — our ROS 2 joint-feedback diagnostics node + web dashboard (see [software log](docs/software-log/2026-06-10-diagnostics-script.md))
 - [Spot Battery Safety Data Sheets (SDS)](https://support.bostondynamics.com/s/article/Spot-Battery-Safety-Data-Sheets-SDS-49922)
 
 ---

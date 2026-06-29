@@ -13,6 +13,7 @@
 >Roll the dev environment back to ROS2 Humble (the `rai-opensource` Spot wrapper targets Humble, not Jazzy), then build a ROS2 node to visualise Spot's joint feedback and pinpoint the frozen `left_hind_x` joint.
 
 **Resources:**
+>[`spot_diagnostics` package repo](https://github.com/Kmyming/spot_diagnostics)
 >[ROS2 Jazzy setup (the upgrade this reverses)](/docs/software-log/2026-05-26-ros2-jazzy-setup.md)
 >[rai-opensource spot_ros2 wrapper](https://github.com/rai-opensource/spot_ros2)
 
