@@ -47,22 +47,41 @@ First swapped hind hip's entire rotor assemblies, then only the output encoder P
 
 
 ## Findings & data
-_Hard facts worth extracting: measurements, part numbers, specs, fault readings — the stuff you'll cite in the report later._
--
+#### Hip joint full ROM angles
+The hip joint of each leg was manually jogged across the full range of motion and the angles at the physical limits recorded.
+
+![alt text](../assets/hip-joint-angles.png)
+
+From the data, we can see that the angle range (delta) is quite consistant across the joints including the one with offset error. From the front hip joint angles, we notice the angle values are about centered around 0 rads. Using 0 rad as the optimal center angle, we can calculate the offset of the hind hip joints:
+
+| RL            | RR             |
+|---------------|----------------|
+| 0.5255 (≈30°) | 0.1185 (≈6.8°) |
+
+#### Offset encoder PCB components
+
+![alt text](../assets/encoder-components.png)
 
 ## Decisions
->**Decision:**
+>**Decision:** Swap back the encoders and test again.
 
-**Why:**
+**Why:** Nobody knows why swapping the encoder solved the frozen angle problem. Perhaps it was due to rotor alignment or some mechanical assembly issue? Swapping back will confirm if it is a magnet + encoder hardware pairing issue.
 
-**Alternatives considered:**
+**Alternatives considered:** NIL
+
+>**Decision:** If swap fails, rotate housing attached to rotor by 1 screw.
+
+**Why:** Manually correct the offset, but minimum resolution is 45 degrees as only 8 screws are used to secure rotor housing.
+
+**Alternatives considered:** Try to find some calibration procedures. However motors are unable to power on due to out of range fault, hence no calibration procedures can be performed.
 
 ## Roadblocks
-- _Anything that blocked progress or is still unresolved._
+NIL
 
 ## Next steps
-- [ ] _Action item for next session_
+- [ ] Swap back the encoders and test again
+- [ ] If swap fails, rotate housing attached to rotor by 1 screw
 
 ## Media
-![alt text](staged-assets/rotor-swap.jpg)
-![alt text](staged-assets/encoder-closeup.jpg)
+![alt text](../assets/rotor-swap.jpg)
+![alt text](../assets/encoder-closeup.jpg)
