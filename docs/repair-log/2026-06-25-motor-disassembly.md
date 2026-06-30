@@ -47,8 +47,8 @@ Disassembled hip (X) motor and identified a second hall effect sensor within sup
 NIL
 
 ## Next steps
-- [ ] Disassemble right leg hip (X) motor
-- [ ] In-depth diagnostics of secondary hall effect sensor
+- [x] Disassemble right leg hip (X) motor
+- [x] In-depth diagnostics of secondary hall effect sensor
 
 ## Media
 ![alt text](../assets/secondary-hall-sensor.jpg)
