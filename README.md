@@ -24,9 +24,9 @@ The Spot robot dog in NUS has not been a very good boi lately. This repository d
 
 | | |
 |---|---|
-| 📅 **Last session** | 18-06-2026 — Battery repair complete and motor diagnostics |
-| 🎯 **Current focus** | 🦿 Actuators & Legs (hind-leg motor) |
-| 🚧 **Blocking issue** | Left hind leg fails self-right |
+| 📅 **Last session** | 02-07-2026 — Encoder EEPROM probe: confirmed the defective secondary output-encoder Hall-IC (eL) is a hardware fault, not a corrupted config — reflash/recalibration ruled out |
+| 🎯 **Current focus** | 🦿 Actuators & Legs — sourcing the replacement secondary-encoder PCB from Boston Dynamics |
+| 🚧 **Blocking issue** | Root cause confirmed (defective LEFT secondary output-encoder Hall-IC); blocked on Boston Dynamics support for a replacement part |
 
 ---
 
@@ -35,9 +35,9 @@ The Spot robot dog in NUS has not been a very good boi lately. This repository d
 | Subsystem | Flag | Active | Notes |
 |-----------|:----:|:------:|-------|
 | 🔋 **Power & Battery** | ✅ Complete |  | Pack #1, #2 rebuilt & verified (full charge, firmware updated) |
-| 🦿 **Actuators & Legs** | 🔧 `WIP` | 👈 | Left hind leg fails self-right; actuators move but motion stuck — under investigation |
+| 🦿 **Actuators & Legs** | 🔧 `WIP` | 👈 | Root cause CONFIRMED — defective LEFT secondary output-encoder Hall-IC (eL); awaiting Boston Dynamics replacement part (see [07-02 EEPROM probe](docs/repair-log/2026-07-02-encoder-eeprom-probe.md)) |
 | 🧠 **Compute & Mainboard** | ⬜ `N/A` |  | Not yet assessed |
-| 📷 **Sensors & Cameras** | ❌ `FAIL` |  | Rear depth camera server fails to start |
+| 📷 **Sensors & Cameras** | ❌ `FAIL` |  | Rear (back) RealSense camera firmware mismatch (running 5.17.0.10, needs 5.11.3.50) — root cause confirmed, blocked on sourcing correct firmware from Boston Dynamics |
 | 📡 **Comms & Networking** | ⬜ `N/A` |  | Not yet assessed |
 | 🦴 **Chassis & Mechanical** | ⬜ `N/A` |  | Not yet assessed |
 
@@ -54,6 +54,16 @@ Newest first — full logs in [`docs/repair-log/`](docs/repair-log/).
 
 | Date | Session | Outcome |
 |------|---------|:------:|
+| 02-07-2026 | [Encoder EEPROM probe — root cause confirmed](docs/repair-log/2026-07-02-encoder-eeprom-probe.md) | ✅ |
+| 01-07-2026 | [SpotCheck diagnosis + magnet swap](docs/repair-log/2026-07-01-spotcheck-diagnosis.md) | ✅ |
+| 30-06-2026 | [Output encoder PCB swap](docs/repair-log/2026-06-30-output-encoder-swap.md) | ✅ |
+| 25-06-2026 | [Hip motor teardown — secondary encoder identified](docs/repair-log/2026-06-25-motor-disassembly.md) | ✅ |
+| 19-06-2026 | [Hip motor driver & cable swap — drivers and connections cleared of fault](docs/repair-log/2026-06-19-leg-component-swap.md) | ✅ |
+| 18-06-2026 | [Battery #2 SoC cable repair & hip motor driver diagnostics](docs/repair-log/2026-06-18-driver-disgnostic.md) | ✅ |
+| 17-06-2026 | [Battery pack #2 assembly at Sodion](docs/repair-log/2026-06-17-battery-2-assembly.md) | ✅ |
+| 16-06-2026 | [Battery pack #2 design optimisation (V2)](docs/repair-log/2026-06-16-battery-design-v2.md) | ✅ |
+| 15-06-2026 | [SPOT teardown & battery pack #2 disassembly](docs/repair-log/2026-06-15-robot-teardown.md) | ✅ |
+| 12-06-2026 | [Actuator diagnostics — left hind leg encoder fault isolated](docs/repair-log/2026-06-12-joint-diagnosis.md) | ✅ |
 | 11-06-2026 | [Battery fault diagnosis & re-weld](docs/repair-log/2026-06-11-battery-assembly-5.md) | 🔧 |
 | 05-06-2026 | [Battery diagnostics & Spot update](docs/repair-log/2026-06-05-sw-update-and-test.md) | 🔧 |
 | 04-06-2026 | [Battery assembly — BMS & charge test](docs/repair-log/2026-06-04-battery-assembly-4.md) | ✅ |
@@ -101,4 +111,4 @@ Spot/
 
 ---
 
-<div align="center"><sub>Last updated: 2026-06-12</sub></div>
+<div align="center"><sub>Last updated: 2026-07-04</sub></div>
