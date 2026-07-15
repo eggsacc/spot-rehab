@@ -33,7 +33,7 @@ Disassembled hip (X) motor and identified a second hall effect sensor within sup
 
 ## Findings & data
 - 50:1 harmonic reducer used in X-motor
-- Secondary IC-Haus hall effect sensor founs beside the harmonic drive input.
+- Secondary IC-Haus hall effect sensor found beside the harmonic drive input.
 - All the screws used inside the motor assembly (e.g those underneath the flange, output shaft and those holding the stator down) are labelled numerically. Perhaps this is the tightening pattern to ensure the rotor is properly centered?
 
 ## Decisions
