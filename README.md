@@ -18,15 +18,15 @@ The Spot robot dog in NUS has not been a very good boi lately. This repository d
 ## 🤖 Robot Status
 
 > [!WARNING] AMPUTATED
-> **❌🦵🦵 Severely crippled:**  Currently a double amputee 😢😢
+> **❌🦵 Crippled:**  Currently a single amputee 😢😢
 
 ![alt text](spot-state.jpg)
 
 | | |
 |---|---|
-| 📅 **Last session** | 02-07-2026 — Encoder EEPROM probe: confirmed the defective secondary output-encoder Hall-IC (eL) is a hardware fault, not a corrupted config — reflash/recalibration ruled out |
-| 🎯 **Current focus** | 🦿 Actuators & Legs — sourcing the replacement secondary-encoder PCB from Boston Dynamics |
-| 🚧 **Blocking issue** | Root cause confirmed (defective LEFT secondary output-encoder Hall-IC); blocked on Boston Dynamics support for a replacement part |
+| 📅 **Last session** | 17-07-2026 — Attempt to read offset encoder, unsuccessful due to inability to power on driver STM32 to initiate clock signals. |
+| 🎯 **Current focus** | Software SDK exploration |
+| 🚧 **Blocking issue** | Unable to perform empirical tests to determine root cause of sensor read faults |
 
 ---
 
@@ -35,7 +35,7 @@ The Spot robot dog in NUS has not been a very good boi lately. This repository d
 | Subsystem | Flag | Active | Notes |
 |-----------|:----:|:------:|-------|
 | 🔋 **Power & Battery** | ✅ Complete |  | Pack #1, #2 rebuilt & verified (full charge, firmware updated) |
-| 🦿 **Actuators & Legs** | 🔧 `WIP` | 👈 | Root cause CONFIRMED — defective LEFT secondary output-encoder Hall-IC (eL); awaiting Boston Dynamics replacement part (see [07-02 EEPROM probe](docs/repair-log/2026-07-02-encoder-eeprom-probe.md)) |
+| 🦿 **Actuators & Legs** | 🔧 `WIP` | 👈 | Root cause CONFIRMED — defective LEFT secondary output-encoder Hall-IC (eL); encoder replaced, but occasional "sensor misread" warning causes stutters when walking backwards. Unable to empirically determine fault. |
 | 🧠 **Compute & Mainboard** | ⬜ `N/A` |  | Not yet assessed |
 | 📷 **Sensors & Cameras** | ❌ `FAIL` |  | Rear (back) RealSense camera firmware mismatch (running 5.17.0.10, needs 5.11.3.50) — root cause confirmed, blocked on sourcing correct firmware from Boston Dynamics |
 | 📡 **Comms & Networking** | ⬜ `N/A` |  | Not yet assessed |
@@ -47,7 +47,7 @@ The Spot robot dog in NUS has not been a very good boi lately. This repository d
 
 ## 🗒️ Repair Log
 
-Newest first — full logs in [`docs/repair-log/`](docs/repair-log/).
+Full logs in [`docs/repair-log/`](docs/repair-log/).
 
 > [!TIP]
 > 📄 **Consolidated subsystem report:** [Battery pack repair](docs/subsystems/battery/battery-repair.md)
@@ -111,4 +111,4 @@ Spot/
 
 ---
 
-<div align="center"><sub>Last updated: 2026-07-04</sub></div>
+<div align="center"><sub>Last updated: 2026-07-17</sub></div>
