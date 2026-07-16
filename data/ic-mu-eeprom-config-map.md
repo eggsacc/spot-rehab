@@ -1,3 +1,9 @@
+# IC-MU EEPROM dump & config map
+
+The data in the external EEPROM connected to the IC-MU encoder was dumped using a Raspberry Pi through I2C. This allows us to compare the config register values of the faulty/frozen joint with the working one to identify any potential config mismatch.
+
+According to the datasheet, the IC-MU encoder will attempt to extract the config bits from this external EEPROM 3 times on startup. If successful, it uses the saved config; Otherwise, it boots with a set of default config values. For the default config, the fallback output protocol is either `BiSS` or `SPI` depending on the state of pin `PA0` (`LOW`=`BiSS`, `VDD/Floating`=`SPI`).
+
 ## Raw dump (hex)
 
 ```
