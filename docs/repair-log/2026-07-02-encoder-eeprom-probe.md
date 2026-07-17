@@ -111,7 +111,7 @@ None of this changes the plan on the table — every branch above still ends wit
 Tracked as an open follow-on investigation, separate from the replacement/procurement decision above.
 
 ## Roadblocks
-None of substance — bench access via the test points was sufficient and the whole procedure stayed read-only (write-protect held high throughout), so no risk was taken with either chip.
+NIL
 
 ## Next steps
 - [x] Determine whether eL's configuration EEPROM is corrupted or miscalibrated — DONE, ruled out
