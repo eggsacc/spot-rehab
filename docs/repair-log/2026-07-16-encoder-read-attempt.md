@@ -61,6 +61,6 @@ Failed to read IC-MU sensor over RS422 due to lack of hardware transceivers. The
 - [x] Reassemble Spot
 
 ## Media
-![alt text](staged-assets/testpad-map.png)
-![alt text](staged-assets/flex-pcb-testpad-soldering.jpg)
-![alt text](staged-assets/oscilloscope-test.jpg)
+![alt text](../assets/testpad-map.png)
+![alt text](../assets/flex-pcb-testpad-soldering.jpg)
+![alt text](../assets/oscilloscope-test.jpg)
