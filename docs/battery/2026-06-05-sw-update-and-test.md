@@ -106,10 +106,10 @@ After probing around the DB25 interface connector cover piece to test for contin
   </video>
 </div>
 
-![alt text](assets/jumped-connector.jpg)
-![alt text](assets/covered-uncovered-ports.jpg)
-![alt text](assets/cell-v-1.png)
-![alt text](assets/cell-v-2.png)
-![alt text](assets/good-weld-resistance.png)
-![alt text](assets/poor-weld-resistance.png)
-![alt text](assets/poor-weld.png)
+![alt text](../assets/jumped-connector.jpg)
+![alt text](../assets/covered-uncovered-ports.jpg)
+![alt text](../assets/cell-v-1.png)
+![alt text](../assets/cell-v-2.png)
+![alt text](../assets/good-weld-resistance.png)
+![alt text](../assets/poor-weld-resistance.png)
+![alt text](../assets/poor-weld.png)

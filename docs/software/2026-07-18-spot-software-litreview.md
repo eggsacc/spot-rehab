@@ -14,8 +14,8 @@
 >Review and document Spot's software stack so we know what each interface can do and what an autonomous inspection routine needs. Cover the Boston Dynamics Python SDK, the GraphNav and Autowalk autonomy stack, and the `spot_ros2` ROS 2 wrapper, then write it up as reference docs in the repo.
 
 **Resources:**
->[Consolidated review](../subsystems/software/spot-software-litreview.md)
->[data/spot-sdk.md](../../data/spot-sdk.md) · [data/graphnav-autowalk.md](../../data/graphnav-autowalk.md) · [data/spot-ros2-wrapper.md](../../data/spot-ros2-wrapper.md) · [data/sdk-vs-autowalk-vs-ros2.md](../../data/sdk-vs-autowalk-vs-ros2.md)
+>[Consolidated review](../../data/software/spot-software-litreview.md)
+>[data/software/spot-sdk.md](../../data/software/spot-sdk.md) · [data/software/graphnav-autowalk.md](../../data/software/graphnav-autowalk.md) · [data/software/spot-ros2-wrapper.md](../../data/software/spot-ros2-wrapper.md) · [data/software/sdk-vs-autowalk-vs-ros2.md](../../data/software/sdk-vs-autowalk-vs-ros2.md)
 >[Spot Python SDK docs](https://dev.bostondynamics.com/docs/python/readme)
 >[Concepts > Autonomy (GraphNav)](https://dev.bostondynamics.com/docs/concepts/autonomy/readme)
 >[rai-opensource spot_ros2](https://github.com/rai-opensource/spot_ros2)
@@ -35,7 +35,7 @@ Watched three segments (gRPC and proto definitions, protobuf implementation, and
 Went through the BD Python SDK docs and repo (architecture, the mandatory client flow, the example catalog, licensing), the full Concepts > Autonomy section (GraphNav map model, localization and initialization, missions and Autowalk, safety and integrations), and the `spot_ros2` driver plus `spot_driver` READMEs (packages, submodules, and the topics, services and actions it exposes).
 
 #### Wrote the reference docs
-Summarised findings and produced four `data/` knowledge pages following the existing data-page style (`spot-sdk.md`, `graphnav-autowalk.md`, `spot-ros2-wrapper.md`, `sdk-vs-autowalk-vs-ros2.md`) and a concise seven-section consolidated report (`docs/subsystems/software/spot-software-litreview.md`) that summarises each area and links out to the data pages for depth using my trusted buddy claude. The SDK page carries a full annotated `hello_spot` worked example that shows the entire code flow from connect to motion to shutdown.
+Summarised findings and produced four `data/` knowledge pages following the existing data-page style (`spot-sdk.md`, `graphnav-autowalk.md`, `spot-ros2-wrapper.md`, `sdk-vs-autowalk-vs-ros2.md`) and a concise seven-section consolidated report (`data/software/spot-software-litreview.md`) that summarises each area and links out to the data pages for depth using my trusted buddy claude. The SDK page carries a full annotated `hello_spot` worked example that shows the entire code flow from connect to motion to shutdown.
 
 ## Findings & data
 - **One API under everything.** Spot runs gRPC services defined by protobufs under `bosdyn/api`. The SDK is the superset, `spot_ros2` and Autowalk are consumers of the same services.

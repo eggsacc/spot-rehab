@@ -367,17 +367,17 @@ first as cell-group imbalance, then as a full battery-fault lockout from a singl
 
 | Date | Session |
 |---|---|
-| 13 May 2026 | [Battery & controller inspection](../../repair-log/2026-05-13-battery-controller-inspection.md) |
-| 20 May 2026 | [Battery restoration attempt](../../repair-log/2026-05-20-battery-restoration-attempt.md) |
-| 21 May 2026 | [Battery module complete disassembly](../../repair-log/2026-05-21-battery-disassembly-sourcing.md) |
-| 25 May 2026 | [DIY pack design & safety research](../../repair-log/2026-05-25-battery-pack-design.md) |
-| 25 May 2026 | [Battery spacer CAD](../../repair-log/2026-05-25-cad-battery-spacer.md) |
-| 28 May 2026 | [Replacement battery assembly (1)](../../repair-log/2026-05-28-battery-assembly.md) |
-| 29 May 2026 | [Replacement battery assembly (2)](../../repair-log/2026-05-29-battery-assembly-2.md) |
-| 02 Jun 2026 | [Replacement battery assembly (3)](../../repair-log/2026-06-02-battery-assembly-3.md) |
-| 04 Jun 2026 | [Battery assembly — BMS & charge test](../../repair-log/2026-06-04-battery-assembly-4.md) |
-| 05 Jun 2026 | [Battery diagnostics & Spot update](../../repair-log/2026-06-05-sw-update-and-test.md) |
-| 11 Jun 2026 | [Battery fault diagnosis & re-weld](../../repair-log/2026-06-11-battery-assembly-5.md) |
+| 13 May 2026 | [Battery & controller inspection](../../battery/2026-05-13-battery-controller-inspection.md) |
+| 20 May 2026 | [Battery restoration attempt](../../battery/2026-05-20-battery-restoration-attempt.md) |
+| 21 May 2026 | [Battery module complete disassembly](../../battery/2026-05-21-battery-disassembly-sourcing.md) |
+| 25 May 2026 | [DIY pack design & safety research](../../battery/2026-05-25-battery-pack-design.md) |
+| 25 May 2026 | [Battery spacer CAD](../../battery/2026-05-25-cad-battery-spacer.md) |
+| 28 May 2026 | [Replacement battery assembly (1)](../../battery/2026-05-28-battery-assembly.md) |
+| 29 May 2026 | [Replacement battery assembly (2)](../../battery/2026-05-29-battery-assembly-2.md) |
+| 02 Jun 2026 | [Replacement battery assembly (3)](../../battery/2026-06-02-battery-assembly-3.md) |
+| 04 Jun 2026 | [Battery assembly — BMS & charge test](../../battery/2026-06-04-battery-assembly-4.md) |
+| 05 Jun 2026 | [Battery diagnostics & Spot update](../../battery/2026-06-05-sw-update-and-test.md) |
+| 11 Jun 2026 | [Battery fault diagnosis & re-weld](../../battery/2026-06-11-battery-assembly-5.md) |
 
 ### External
 

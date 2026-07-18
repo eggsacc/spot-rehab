@@ -17,7 +17,7 @@ A ROS 2 package suite that wraps the SDK so Spot can be driven and observed from
 | Maintainers | MASKOR (FH Aachen) and the RAI Institute, with contributions from Linkoping University, derived in part from Clearpath's earlier driver |
 | License | Dual: BSD-3 (Clearpath-derived) and MIT (ROS 2 specific) |
 
-We run it via Docker (Ubuntu 22.04 with ROS 2 Humble) because our host is now Ubuntu 24.04 with ROS 2 Jazzy. See the [Jazzy and Humble Docker setup guide](../docs/subsystems/software/jazzysetup.md).
+We run it via Docker (Ubuntu 22.04 with ROS 2 Humble) because our host is now Ubuntu 24.04 with ROS 2 Jazzy. See the [Jazzy and Humble Docker setup guide](jazzysetup.md).
 
 ## Packages
 
