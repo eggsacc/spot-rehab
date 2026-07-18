@@ -1,4 +1,0 @@
-(fp_lib_table
-	(version 7)
-	(lib (name "addon") (type "KiCad") (uri "${KIPRJMOD}/addon.pretty") (options "") (descr ""))
-)
