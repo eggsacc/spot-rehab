@@ -12,13 +12,13 @@ This PCB section holds the IC-MU encoder, the external EEPROM and a RS485 transc
 
 - `PA0` on the IC-MU is tied to ground, revealing that the fall-back communication protocol defaults to `BiSS`.
 - `DI` on transceiver -> `PA3` of IC-MU.
-- `RO` on transceiver -> `PA0` of IC-MU.
+- `RO` on transceiver -> `PA1` of IC-MU.
 
 Wiring is a textbook ExtSSI slave node:
 
 | iC-MU pin | Function (MODEA=7) | Connection |
 |---|---|---|
-| PA0 | NPRES | floating, 30 µA internal pull-up → high ✅ |
+| PA0 | NPRES | tied to GND (selects BiSS fallback) ✅ |
 | PA1 | MA (clock in) | ← LTC2863 RO ✅ |
 | PA2 | SLI (slave in) | GND ✅ (correct for single slave, no chain) |
 | PA3 | SLO (data out) | → LTC2863 DI ✅ |
