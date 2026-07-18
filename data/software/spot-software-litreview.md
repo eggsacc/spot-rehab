@@ -11,7 +11,7 @@
 
 ## Summary
 
-This is the concise summary of what we have reviewed so far on Spot's software, and it is the entry point for the detailed knowledge pages in [`data/`](../../../data/). Spot is a black box with no SSH, so everything we do goes over the network as gRPC calls to services the robot runs. There are three ways to drive it, all sitting on that one API: the Python SDK (lowest level and full capability), the tablet's Autowalk and GraphNav autonomy stack (no-code, built on the SDK's services), and the `spot_ros2` ROS 2 wrapper (a subset for teleop, perception and state, with no GraphNav autonomy). Our robot carries the Spot Enterprise license, so the self-charging dock, GraphNav autonomy and Orbit are available, and only the Joint Control and Choreography APIs would need a separate special-permission license.
+This is the concise summary of what we have reviewed so far on Spot's software, and it is the entry point for the detailed knowledge pages in [`data/`](../). Spot is a black box with no SSH, so everything we do goes over the network as gRPC calls to services the robot runs. There are three ways to drive it, all sitting on that one API: the Python SDK (lowest level and full capability), the tablet's Autowalk and GraphNav autonomy stack (no-code, built on the SDK's services), and the `spot_ros2` ROS 2 wrapper (a subset for teleop, perception and state, with no GraphNav autonomy). Our robot carries the Spot Enterprise license, so the self-charging dock, GraphNav autonomy and Orbit are available, and only the Joint Control and Choreography APIs would need a separate special-permission license.
 
 Each numbered section below is a short overview. Follow the link at the end of the section for the full treatment.
 
@@ -36,7 +36,7 @@ Spot (onboard): gRPC services (bosdyn/api protos)
 - **Autowalk and GraphNav** is the tablet-facing autonomy layer, built on the same services.
 - **Orbit** is the Enterprise remote-operations web product above all three.
 
-Full detail: [data/spot-sdk.md](../../../data/spot-sdk.md).
+Full detail: [data/software/spot-sdk.md](spot-sdk.md).
 
 ## 2. Key terms
 
@@ -50,7 +50,7 @@ Full detail: [data/spot-sdk.md](../../../data/spot-sdk.md).
 | **Client** | SDK class that talks to one service, obtained from the `Robot` object. | `RobotStateClient` |
 | **Object** | A built message instance we pass around. | a `RobotCommand` from `RobotCommandBuilder` |
 
-The whole model in three lines: a `.proto` declares a service and its RPCs, the SDK gives us a client for that service, and calling a method on the client runs the RPC. Boston Dynamics splits each area into a `*_service.proto` (the service and RPCs) and a data `.proto` (the message types). Term-by-term detail with the Greeter example and code: [data/spot-sdk.md](../../../data/spot-sdk.md).
+The whole model in three lines: a `.proto` declares a service and its RPCs, the SDK gives us a client for that service, and calling a method on the client runs the RPC. Boston Dynamics splits each area into a `*_service.proto` (the service and RPCs) and a data `.proto` (the message types). Term-by-term detail with the Greeter example and code: [data/software/spot-sdk.md](spot-sdk.md).
 
 ## 3. Mandatory startup procedure
 
@@ -65,7 +65,7 @@ Order matters. Each step gates the next, and nothing moves until all are done.
 | Lease | exclusive-control token, taken with `acquire` or stolen with `take` |
 | Power on | motors are off until explicitly powered |
 
-The lease and E-Stop keepalives have to stay in scope for the whole session. If either falls out of scope the robot times out and control is lost. This is the most common cause of a program appearing to randomly lose Spot. Full flow with code: [data/spot-sdk.md](../../../data/spot-sdk.md).
+The lease and E-Stop keepalives have to stay in scope for the whole session. If either falls out of scope the robot times out and control is lost. This is the most common cause of a program appearing to randomly lose Spot. Full flow with code: [data/software/spot-sdk.md](spot-sdk.md).
 
 ## 4. One full worked example (hello_spot)
 
@@ -79,7 +79,7 @@ The lease and E-Stop keepalives have to stay in scope for the whole session. If 
 6. **Read a sensor**: capture from a camera through `ImageClient`.
 7. **Shut down**: sit, then power off. Keepalives release as they leave scope.
 
-Every step maps back to a key term in section 2. The gripper-open case is the same shape with a different builder (build a gripper command, set the open fraction to 1.0, send it). Multiple simultaneous actions are wrapped into one synchronized command. Annotated source: [data/spot-sdk.md](../../../data/spot-sdk.md).
+Every step maps back to a key term in section 2. The gripper-open case is the same shape with a different builder (build a gripper command, set the open fraction to 1.0, send it). Multiple simultaneous actions are wrapped into one synchronized command. Annotated source: [data/software/spot-sdk.md](spot-sdk.md).
 
 ## 5. GraphNav and Autowalk
 
@@ -91,7 +91,7 @@ GraphNav is Spot's mapping, localization and autonomous-navigation system. The m
 - **Service layer.** Missions are behavior trees (sequence, selector, retry, blackboard variables, `BosdynNavigateTo`, `RemoteGrpc` for custom logic). Autowalk is a higher, linear "go here, do this" abstraction compiled into a mission, and is what the tablet produces.
 - **Safety and integrations.** Area callbacks (doors, elevators), hazard avoidance, AutoReturn on comms loss, directed exploration as a last resort, docking and self-charge, and GPS via a payload.
 
-Full detail: [data/graphnav-autowalk.md](../../../data/graphnav-autowalk.md).
+Full detail: [data/software/graphnav-autowalk.md](graphnav-autowalk.md).
 
 ## 6. spot_ros2 wrapper
 
@@ -104,10 +104,10 @@ Full detail: [data/graphnav-autowalk.md](../../../data/graphnav-autowalk.md).
   - *Services* (instant request and reply): `sit`, `stand`, `claim` and `release` (grab or drop the control lease), `power_on` and `power_off`, e-stop, docking, and arm and gripper commands if an arm is fitted.
   - *Actions* (long-running, with progress feedback and cancel): walking to a goal, trajectories, and manipulation.
 
-  Every name is prefixed with the robot's name (for example `/spot/joint_states`), and the exact set depends on driver version and payloads, so the source of truth is `ros2 topic list`, `ros2 service list` and `ros2 action list` on the running robot. Full breakdown: [data/spot-ros2-wrapper.md](../../../data/spot-ros2-wrapper.md).
+  Every name is prefixed with the robot's name (for example `/spot/joint_states`), and the exact set depends on driver version and payloads, so the source of truth is `ros2 topic list`, `ros2 service list` and `ros2 action list` on the running robot. Full breakdown: [data/software/spot-ros2-wrapper.md](spot-ros2-wrapper.md).
 - **Key gap.** No GraphNav map recording, localization or missions over ROS 2. A ROS 2 autonomy stack would run its own Nav2 on the driver's sensor and odom feeds, or need a bridge to GraphNav.
 
-Full detail: [data/spot-ros2-wrapper.md](../../../data/spot-ros2-wrapper.md).
+Full detail: [data/software/spot-ros2-wrapper.md](spot-ros2-wrapper.md).
 
 ## 7. SDK vs Autowalk vs spot_ros2
 
@@ -117,7 +117,7 @@ Full detail: [data/spot-ros2-wrapper.md](../../../data/spot-ros2-wrapper.md).
 | **spot_ros2** | reusing the ROS 2 and Nav2 ecosystem, base control and perception | none over ROS 2 (bring our own Nav2) | ROS 2 |
 | **Autowalk** | fastest no-code linear inspection with dock and self-charge | linear replay only, no branching | none |
 
-Bottom line for our robot (Enterprise license): Autowalk gets a fiducial-anchored inspection loop running with no code and no special license, and we drop to the SDK when we need branching, reactive behavior or custom perception. spot_ros2 is the route to reuse ROS 2 and Nav2 experience but does not give us GraphNav. Full capability matrix and the license detail: [data/sdk-vs-autowalk-vs-ros2.md](../../../data/sdk-vs-autowalk-vs-ros2.md).
+Bottom line for our robot (Enterprise license): Autowalk gets a fiducial-anchored inspection loop running with no code and no special license, and we drop to the SDK when we need branching, reactive behavior or custom perception. spot_ros2 is the route to reuse ROS 2 and Nav2 experience but does not give us GraphNav. Full capability matrix and the license detail: [data/software/sdk-vs-autowalk-vs-ros2.md](sdk-vs-autowalk-vs-ros2.md).
 
 ## References
 

@@ -14,7 +14,7 @@
 >Upgrade Ubuntu 22.04 with ROS2 Humble env dual-boot to Ubuntu 24.04 with ROS2 Jazzy env
 
 **Resources:**
->[Ubuntu in-place upgrade and ROS2 Jazzy setup workflow](/docs/subsystems/software/jazzysetup.md)
+>[Ubuntu in-place upgrade and ROS2 Jazzy setup workflow](/data/software/jazzysetup.md)
 
 ****
 ## TL;DR

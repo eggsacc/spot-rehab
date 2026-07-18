@@ -128,4 +128,4 @@ The test to isolate the fault to the motor/encoder will proceed in this manner:
 - [x] Teardown SPOT
 
 ## Media
-![img](assets/visualiser.jpg)
+![img](../assets/visualiser.jpg)
