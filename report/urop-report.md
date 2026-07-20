@@ -66,21 +66,22 @@ received non-operational, and this report documents the hardware-level work carr
 return it toward service. Two independent faults were present on arrival. First, the power
 subsystem was dead: both of Spot's battery modules refused to charge, so the robot could not
 be powered from its own packs at all. Second, once external power was restored, one leg
-actuator — the **left hind hip-X (abduction/adduction) joint** (hereafter **hip-X**, and
-specifically `left_hind_x`) — behaved abnormally, with the joint failing to reach commanded
+actuator, the **left hind hip-X (abduction/adduction) joint** (hereafter **hip-X**, and
+specifically `left_hind_x`), behaved abnormally, with the joint failing to reach commanded
 positions while the other three legs moved normally. The mechanical and electrical nature of
 that actuator was, at the outset, entirely unknown: it had never been opened, and no internal
 documentation was available.
 
-The work reported here pursues two objectives that together serve a single thesis — *to
+The work reported here pursues two objectives that together serve a single thesis: *to
 rebuild Spot's power system and to physically and electrically reverse-engineer its faulty hip
 actuator so that the hardware is characterised and the fault is localised to a physical part.*
 The first objective was to restore the power subsystem by diagnosing the charge fault and,
 should the cells prove unrecoverable, rebuilding each pack on its original battery management
 system (BMS) in the OEM form factor. The second objective was to characterise the hip-X
-actuator as a piece of hardware — its mechanical construction, its dual-encoder architecture,
-and the electrical design of its output-encoder board — and, through a sequence of physical
-component swaps and bench measurements, to narrow the fault down to a specific physical part.
+actuator as a piece of hardware, covering its mechanical construction, its dual-encoder
+architecture, and the electrical design of its output-encoder board, and then, through a
+sequence of physical component swaps and bench measurements, to narrow the fault down to a
+specific physical part.
 
 The scope of this report is deliberately confined to the **hardware layer**. It describes
 physical acts (teardown, cell replacement, spot-welding, component interchange, board probing)
@@ -93,7 +94,7 @@ logs and reference pages; no external measurements were introduced.
 
 The working approach throughout was bench-based and comparative. Because Spot's two hind legs
 are nominally identical, the healthy hind leg served as a reference against which the faulty
-one could be compared part by part — a strategy that recurs across the actuator chapters. The
+one could be compared part by part, a strategy that recurs across the actuator chapters. The
 remainder of the report is organised as follows. The **Background** section establishes the
 battery and actuator architectures as found. Three methodology chapters then cover, in turn,
 the **power-system rebuild**, the **actuator mechanical investigation**, and the **encoder
@@ -109,8 +110,8 @@ Spot is powered by two identical, hot-swappable battery modules. Each module is 
 assembly whose perimeter is held closed by a tough adhesive bead. The internal architecture was
 first established from a published third-party teardown of the Spot platform [3] and then
 confirmed directly during the project's own disassembly (Section 4). Each module carries
-**56 Samsung INR18650-30Q lithium-ion cells** — a 3000 mAh cell rated 15 A continuous / 30 A
-peak, identified from Boston Dynamics' Spot Battery Safety Data Sheet [1] — arranged in a
+**56 Samsung INR18650-30Q lithium-ion cells**, a 3000 mAh cell rated 15 A continuous / 30 A
+peak, identified from Boston Dynamics' Spot Battery Safety Data Sheet [1], arranged in a
 **14s4p** configuration and physically built as **two 7s4p sub-packs** (labelled A and B). A
 single BMS PCB, built around an STM32 microcontroller, manages the module and communicates with
 the robot over a **CAN bus**. Table 1 summarises the construction as found.
@@ -124,13 +125,13 @@ Table: **Table 1 —** OEM battery module architecture, as established from the 
 | Cell | Samsung INR18650-30Q (3000 mAh, 15 A cont. / 30 A peak) |
 | Cell count & topology | 56 cells in 14s4p, built as two 7s4p sub-packs (A & B) |
 | BMS | Single PCB, STM32 MCU, CAN bus to the robot |
-| Measurement pads | 28 pads — positives along the long PCB edges, common negative down the centre |
+| Measurement pads | 28 pads: positives along the long PCB edges, common negative down the centre |
 | Thermal sensing | One flexible PCB per sub-pack, each carrying five SMD NTC thermistors |
 | Thermal / safety | Phase-change material around the cells; fish-paper terminal insulation; foam seating |
 
 Two construction details established here proved decisive for the rebuild. The cell layout is
-deliberately **irregular** — cells are unevenly spaced and are not even collinear within a row,
-the centre cells sitting slightly proud of their neighbours — so any replacement spacer had to
+deliberately **irregular**: cells are unevenly spaced and are not even collinear within a row,
+the centre cells sitting slightly proud of their neighbours, so any replacement spacer had to
 reproduce those exact positions rather than assume a regular lattice. Thermal management is
 provided by a phase-change material packed around the cells, which absorbs heat through its
 latent heat of fusion and buffers thermal-runaway energy, supplemented by the two five-element
@@ -145,16 +146,16 @@ large number of motor revolutions map to a small, high-torque motion of the leg.
 measurements on the hip motor established a **20-pole, 18-slot** machine (a slot/pole ratio of
 0.9) with a phase resistance of approximately **0.5 Ω**.
 
-Crucially, the actuator carries **two** angle sensors rather than one, a fact that only became
-apparent once the motor was opened (Section 6). The **primary encoder** is a motor-side
-**iC-MHM 14-bit absolute Hall encoder** that reads rotor angle before the reduction. The
-**secondary output encoder** is a separate **iC-Haus iC-MU Hall-IC** mounted at the
-harmonic-drive output stage, reading the actual joint angle *after* the 50:1 reduction. The
-secondary encoder sits on its own small PCB — carrying, in addition to the iC-MU, an external
-configuration EEPROM and an RS-485/RS-422 differential transceiver — stacked with the joint's
-load-cell PCB behind the main motor connector. The physical construction and electrical routing
-of that board are characterised in this report (Sections 6 and 7); the *functional role* of the
-two encoders within Spot's joint-control signalling is described in [Ming, SS-TBD].
+The actuator carries **two** angle sensors rather than one, a fact that only became apparent
+once the motor was opened (Section 6). The **primary encoder** is a motor-side **iC-MHM 14-bit
+absolute Hall encoder** that reads rotor angle before the reduction. The **secondary output
+encoder** is a separate **iC-Haus iC-MU Hall-IC** mounted at the harmonic-drive output stage,
+reading the actual joint angle *after* the 50:1 reduction. The secondary encoder sits on its
+own small PCB, which also carries an external configuration EEPROM and an RS-485/RS-422
+differential transceiver, stacked with the joint's load-cell PCB behind the main motor
+connector. The physical construction and electrical routing of that board are characterised in
+this report (Sections 6 and 7); the *functional role* of the two encoders within Spot's
+joint-control signalling is described in [Ming, SS-TBD].
 
 # Methodology 1 — Power-system rebuild
 
@@ -167,12 +168,12 @@ controller, by contrast, powered on and connected normally (though it drained qu
 confirming that the fault was specific to the battery modules rather than the wider system.
 
 To gain direct access to the cells and the BMS measurement pads, a module was opened along its
-adhesive seam. The initial cell-group voltages averaged only about **90 mV** — far below the
-2.5 V minimum safe voltage for an 18650 cell — indicating severe over-discharge. A staged
+adhesive seam. The initial cell-group voltages averaged only about **90 mV**, far below the
+2.5 V minimum safe voltage for an 18650 cell, indicating severe over-discharge. A staged
 recovery was nonetheless attempted before any decision to scrap the cells: each accessible
 group was bench-charged slowly at 2.0 V / 1.5 A, and once groups reached roughly 2.0 V the
 limits were raised to 16 V / 5 A across up to five groups at a time (Figure 2). The pack rose to
-about 14.5 V on the supply (P1–GND measured 13.3 V combined), demonstrating that it would *take*
+about 14.5 V on the supply (P1-GND measured 13.3 V combined), demonstrating that it would *take*
 charge.
 
 ![](../docs/assets/charge-test.jpg){width=48%}
@@ -186,7 +187,7 @@ rather than blinking steady green, signalling a refused charge.
 back above the safe minimum before committing to a rebuild.
 
 The recovery did not hold, and the manner of its failure was itself the diagnosis. Returned to
-the OEM charger, the BMS status LED blinked — a successful CAN handshake — but the charge
+the OEM charger, the BMS status LED blinked, a successful CAN handshake, but the charge
 indicator went green and then static, reporting a *"full"* charge on cells that were plainly
 empty (Figure 3). The Spot manual attributes a false "full" to highly imbalanced cells and
 suggests leaving the pack plugged in to auto-rebalance, which had no effect. After idling, the
@@ -194,13 +195,13 @@ cells were warm to the touch and pack voltage collapsed from about 1.6 V to 0.6 
 combination of warmth and rapid voltage collapse is consistent with resistive self-discharge
 through dead cells now behaving as internal short circuits; the cells were therefore judged
 degraded beyond recovery. The decision followed directly: replace the cells rather than recover
-them, and — to preserve the OEM BMS, CAN interface and casing — rebuild onto the original board
+them and, to preserve the OEM BMS, CAN interface and casing, rebuild onto the original board
 in the standard 14s4p configuration by spot-welding replacement cells onto the original pads.
 
 ![](../docs/assets/charger-static.jpg){width=48%}
 
 **Figure 3 —** The OEM charge indicator sitting static green ("full") moments after the pack
-measured near-empty — the signature of dead, imbalanced cells.
+measured near-empty: the signature of dead, imbalanced cells.
 
 ## Teardown and OEM construction
 
@@ -211,8 +212,8 @@ unscrewing the leads and unplugging the CAN cable; a plastic insulator covering 
 BMS pad sets was removed. The nickel strips are spot-welded to the BMS pads and could not be cut
 cleanly because the plastic frame blocked the cutter, so they were pried off the pads, leaving
 small welded-nickel bumps that required clean-up before re-welding. The two 7s4p sub-packs were
-then separated — a long plastic snap-connector releases by prying both ends and twisting the
-centre clips, and a shorter connector by pushing its centre axle out from below — and the two
+then separated: a long plastic snap-connector releases by prying both ends and twisting the
+centre clips, and a shorter connector by pushing its centre axle out from below. The two
 flexible thermistor strips (Figure 7) were unplugged and labelled A and B to preserve their
 original sides.
 
@@ -223,9 +224,9 @@ thermistor strips.
 
 The teardown confirmed the topology of Table 1 and fixed the two design constraints noted in
 the Background: the irregular, non-collinear cell layout (Figure 5) that the replacement spacer
-would have to reproduce, and the 28-pad BMS layout (Figure 6) — positives along the long edges,
+would have to reproduce, and the 28-pad BMS layout (Figure 6), positives along the long edges,
 common negative down the centre, with three pad sets awkwardly recessed beneath the power-wire
-insulator — onto which the new pack would weld.
+insulator, onto which the new pack would weld.
 
 ![](../docs/assets/battery-layout.jpg){width=55%}
 
@@ -267,7 +268,7 @@ and how to hold the irregular cell lattice rigidly.
 The conductor sizing followed from an estimate of Spot's power draw. With the pack rated at
 about 500 Wh and a datasheet runtime of roughly 1.5 h, and assuming discharge to 20 % state of
 charge over that time, the average power is approximately 0.8 × 500 / 1.5 ≈ **267 W**; against
-the manual's 38–52 V supply this implies an operating current of about **5.1–7.0 A**. Sizing to
+the manual's 38-52 V supply this implies an operating current of about **5.1-7.0 A**. Sizing to
 a 50 % margin (~400 W continuous) gives a peak pack current of about **10.5 A**, or roughly
 **2.63 A per cell** across the four parallel cells in each group. Those figures set the strip
 widths in Table 3; the OEM pack uses 12 mm strip throughout, which is comfortably conservative
@@ -278,20 +279,19 @@ Table: **Table 3 —** Inter-cell conductor sizing, from the estimated ~10.5 A p
 | Conductor | Spec | Basis |
 |---|---|---|
 | Inter-cell links | 0.1 × 8 mm pure nickel | Per-cell current only ~2.63 A |
-| 4s pack leads | 0.15 × 12 mm pure nickel | Rated ~17 A optimal / 25.5 A acceptable — ample for ~10.5 A pack max |
+| 4s pack leads | 0.15 × 12 mm pure nickel | Rated ~17 A optimal / 25.5 A acceptable, ample for ~10.5 A pack max |
 
 The irregular OEM layout was replicated in CAD from direct measurement of the original pack and
 3D-printed as a four-piece cell spacer in **PC-CF** (polycarbonate / carbon-fibre), chosen for
 its high operating-temperature limit and strong inter-layer bond, which maximise rigidity
-(Figure 8). The four spacers printed over roughly ten hours. The supplied filament adhered
-unusually well and printed very easily, raising a suspicion that it was PETG sold as PC-CF —
-functionally adequate for this part in any case. Safety and thermal provisions mirrored the OEM
-approach where practical: fish-paper insulation cut to shape across the cell terminals to
-prevent accidental shorts, and a silicone thermal sheet between the pack and the shell for heat
-transfer and to seat the cells firmly in the casing grooves. An off-the-shelf phase-change
-material equivalent to the OEM latent-heat filler [4] was researched but none easy to work with
-was found, so it was omitted from this rebuild — a deviation from stock noted here as a
-limitation.
+(Figure 8). The four spacers printed over roughly ten hours. Safety and thermal provisions
+mirrored the OEM approach where practical: fish-paper insulation cut to shape across the cell
+terminals to prevent accidental shorts, and a silicone thermal sheet between the pack and the
+shell for heat transfer and to seat the cells firmly in the casing grooves. An off-the-shelf
+phase-change material equivalent to the OEM latent-heat filler [4] was researched but none easy
+to work with was found, so it was omitted from this rebuild, on the basis that the current-sizing
+estimate above already showed the cells operating well under their rated capacity even at peak
+load: a deviation from stock noted here as a limitation.
 
 ![](../docs/assets/3D-printed-brackets.jpg){width=55%}
 
@@ -301,24 +301,23 @@ positions.
 ## Assembly and spot-welding
 
 The cells were seated in the spacers and their terminals joined with nickel strip at a
-partner facility (Sodion Energy). Only 10 mm strip was available, so it was trimmed to about
+partner facility, Sodion Energy. Only 10×0.15 mm strip was available, so it was trimmed to about
 8 mm before use (Figure 9). The 12 mm BMS PCB tabs tended to "explode" when welded onto the
-thinner strip beneath them, so those tabs were **soldered** rather than welded. A recurring
-practical constraint was that the welder could not reliably join more than one nickel strip at
-a time, which ruled out strip-stacking and shaped the later V2 design.
+thinner strip beneath them, so some tabs that kept coming loose were **soldered** rather than
+welded. A recurring practical constraint was that the welder could not reliably join more than
+one nickel strip at a time, which ruled out strip-stacking and shaped the later V2 design.
 
 ![](../docs/assets/welded-pack.JPG){width=55%}
 
 **Figure 9 —** A cell sub-pack with nickel strips spot-welded across the terminals.
 
 Welder reliability was in fact the dominant obstacle of the whole rebuild. Partway through, the
-bench spot-welder failed with an *Error 22 — transistor fault*: after about thirty minutes of
-use there was an audible pop and a smell of smoke from the supply. The immediate contributors
-were assessed as electrode fouling and mushrooming, thermal saturation of the welder's IGBTs,
-and contact-pressure drift; the underlying cause was later traced, on opening the unit, to a
-**cracked solder joint on a capacitor module**, with burn marks on the PCB beside an
-otherwise-healthy capacitor. A handheld spot-welder (Figure 10) was pressed into service to
-finish both packs while the bench unit was out of action.
+bench spot-welder failed with an *Error 22 (transistor fault)*: after about thirty minutes of
+use there was an audible pop and a smell of smoke from the supply. The immediate contributor was
+assessed as thermal saturation of the welder's IGBTs; the underlying cause was later traced, on
+opening the unit, to a **cracked solder joint on a capacitor module**, with burn marks on the PCB
+beside an otherwise-healthy capacitor. A handheld spot-welder (Figure 10) was pressed into
+service to finish both packs while the bench unit was out of action.
 
 ![](../docs/assets/manual-spot-welder.jpg){width=48%}
 
@@ -326,9 +325,10 @@ finish both packs while the bench unit was out of action.
 with an Error 22 transistor fault.
 
 The pack was then reattached to the BMS, ground ends first and positive ends second. As each
-cell group was welded on, the BMS's red indicator LEDs blinked in response (Figure 11),
-providing a live confirmation that the group had connected. The module was finally closed with
-its original foam pieces reinserted to keep the cells seated.
+cell group was welded on, the BMS's red indicator LEDs blinked in response, but in no
+consistent order: static for a few groups, blinking for another few, unlit for the rest
+(Figure 11). The module was finally closed with its original foam pieces reinserted to keep the
+cells seated.
 
 ![](../docs/assets/bms-indicator.jpg){width=50%}
 
@@ -339,13 +339,17 @@ its original foam pieces reinserted to keep the cells seated.
 The first charge test exposed the rebuild's central weakness. The state-of-charge (SoC) button
 showed a single blinking green bar; the charger flashed green (charging) but, after about twenty
 minutes, went static green ("full") while the SoC still showed one bar. The BMS then flashed
-three red LEDs and extinguished its green STM32 LED, halting the charge. From the admin console
-the battery balance index read **0.213**, well above the 0.1 threshold that calls for active
-balancing — but automatic balancing requires battery firmware later than V45, whereas the pack
-reported V33, so the legacy charger could not rebalance it. The rebuilt pack did successfully
-power the robot through a boot cycle, confirming that it could deliver load current even while
-imbalanced, which pointed the investigation at the cells' connections rather than at the
-charging system.
+three red LEDs and extinguished its green STM32 LED, halting the charge.
+
+From the admin console the battery balance index read **0.213**, well above the 0.1 threshold
+that calls for active balancing. Automatic balancing, however, requires battery firmware later
+than V45, whereas the pack reported V33, so the legacy charger was never going to rebalance it
+on its own, and the premature "full" reading was a symptom of that imbalance rather than a
+genuine end of charge.
+
+The rebuilt pack did nonetheless power the robot through a boot cycle, confirming that it could
+deliver load current even while imbalanced. That ruled out a dead pack outright and pointed the
+investigation at the cells' connections rather than at the charging system.
 
 After charging until the charger again reported "full", each group's voltage was measured and
 tabulated (Figure 12). Groups 1, 2 and 8 read abnormally while the remainder were well
@@ -375,12 +379,12 @@ reads a substantially higher resistance.
 The weld problem then escalated from imbalance to a hard lockout. After the pack was left
 overnight, Spot reported a **battery fault** and refused to power on, and charging produced the
 same fault with all SoC lights blinking. A third voltage sweep (Figure 15) showed group 1
-reading an impossible **−0.5 V** while every other group — including the previously unbalanced
-ones — sat at a healthy 3.71–3.72 V. Candidate failure modes were narrowed by elimination: no
+reading an impossible **−0.5 V** while every other group, including the previously unbalanced
+ones, sat at a healthy 3.71-3.72 V. Candidate failure modes were narrowed by elimination: no
 visible BMS damage argued against a blown MOSFET or resistor; normal resistance along the
 positive nickel strips ruled out a positive-side weld; and the group's good service history made
 cell degradation unlikely. Probing the group directly, with its negative terminal disconnected
-from the BMS, gave 3.71 V — but only when the negative nickel strip was pressed down hard
+from the BMS, gave 3.71 V, but only when the negative nickel strip was pressed down hard
 (Figure 16). That intermittent contact isolated the fault to a **broken weld on the group's
 negative terminal**: the group had effectively disconnected from the BMS, and the −0.5 V was a
 phantom reading, most plausibly the reverse bias of an internal protection diode or the drop
@@ -396,34 +400,34 @@ reads a negative voltage.
 ![](../docs/assets/battery-3.7.jpg){width=42%}
 
 **Figure 16 —** Group 1 reads a phantom −0.5 V at the BMS pads (left) while probing the cell
-group directly reads a healthy 3.71 V (right) — confirming a broken negative-terminal weld,
+group directly reads a healthy 3.71 V (right), confirming a broken negative-terminal weld,
 not a bad cell.
 
 Rather than repair only the known-bad joints, the pack was returned to the partner facility and
 **every weld was redone** to eliminate any further intermittent connections. After re-welding,
 the SoC fault lights cleared, the pack charged normally, and it reached a **full, balanced
-charge for the first time** — the hallmark of sound welds allowing the cells to balance
+charge for the first time**, the hallmark of sound welds allowing the cells to balance
 correctly (Table 4). Battery module #1 was thereby repaired and verified.
 
 Table: **Table 4 —** Battery pack #1 state before and after the weld rework.
 
 | | Before rework | After rework |
 |---|---|---|
-| Group 1 (P1–P2) | −0.5 V (disconnected) | balanced, ~3.7 V |
+| Group 1 (P1-P2) | −0.5 V (disconnected) | balanced, ~3.7 V |
 | Charge behaviour | premature false "full", fault lockout | charges to full, no fault |
 | Cell balance | groups 1 / 2 / 8 anomalous | all groups balanced |
 
 ## Second module: a V2 pack that validated the fixes
 
-The single dominant lesson of pack #1 — that reliability was governed almost entirely by
-spot-weld quality, and that weld failures traced to bends and stress points in the nickel-strip
-routing imposed by the bracket design — was carried directly into a second module. The V2
+The single dominant lesson of pack #1, that reliability was governed almost entirely by
+spot-weld quality and that weld failures traced to bends and stress points in the nickel-strip
+routing imposed by the bracket design, was carried directly into a second module. The V2
 brackets (Figure 18) added a further set of braces with tighter tolerances to hold the cell
 lattice rigidly (pack #1's brackets had allowed some play when flexed), reincorporated the OEM
 injection-moulded spacer positions for rigidity, and were re-dimensioned to fit the casing and
 PCB more accurately after the lessons of V1. They were printed in glass-filled ABS (ABS-GF) for
-dimensional stability at temperature, and the BMS mounting was changed from expanding rivets —
-which had split the printed layer lines — to captured M3 nuts under 1.2 mm of plastic, secured
+dimensional stability at temperature, and the BMS mounting was changed from expanding rivets,
+which had split the printed layer lines, to captured M3 nuts under 1.2 mm of plastic, secured
 with M3×6 mm screws.
 
 ![](../docs/assets/battery-v2-cad.png){width=60%}
@@ -431,18 +435,19 @@ with M3×6 mm screws.
 **Figure 18 —** The pack #2 V2 bracket CAD, adding braces, OEM spacer positions and captured-nut
 BMS mounting.
 
-The improvement was borne out in assembly (Figure 19). With laser-cut nickel strips that
-eliminated strip-stacking, and a small slot cut-out at each weld site, welding produced little
-to no sparking and joints that held firmly when the tabs were pulled. Where pack #1 had taken
-two people three days, pack #2 was completed by one person in a single afternoon. After
-assembly, the SoC button was initially unresponsive; this was traced to a **sheared SoC flat-flex
-cable** near its base and a missing connector fastener (Figure 17). The broken cable was repaired
-by scraping back the insulation on both ends and soldering the exposed traces, with kapton tape
-added to relieve strain on the joints and a shim of cardboard standing in for the absent
-fastener; the SoC then read correctly. Pack #2 charged to full within about an hour, reported a
-very healthy balance index of **0.02**, and accepted a battery firmware update once installed in
-Spot. Both modules were thereby restored to a full, balanced charge, meeting the power-system
-objective.
+The improvement was borne out in assembly (Figure 19). Custom nickel strips, laser-cut and
+sourced via Taobao, eliminated strip-stacking, with a narrow slot cut into each weld site so
+that the welder's current was directed through the layers rather than arcing across the
+surface; the result was little to no sparking and joints that held firmly when the tabs were
+pulled, with no re-welding required. Where pack #1 had taken two people three days, pack #2 was
+completed by one person in a single afternoon. After assembly, the SoC button was initially
+unresponsive; this was traced to a **sheared SoC flat-flex cable** near its base and a missing
+connector fastener (Figure 17). The broken cable was repaired by scraping back the insulation on
+both ends of the flex PCB and soldering the exposed traces, with kapton tape added as a strain
+relief on the joints and a shim of cardboard standing in for the absent fastener; the SoC then
+read correctly. Pack #2 charged to full within about an hour, reported a very healthy balance
+index of **0.02**, and accepted a battery firmware update once installed in Spot. Both modules
+were thereby restored to a full, balanced charge, meeting the power-system objective.
 
 ![](../docs/assets/sheared-soc-cable.jpg){width=42%}
 ![](../docs/assets/repaired-soc-cable.jpg){width=42%}
@@ -473,8 +478,8 @@ Spot was disassembled to extract the left hind leg together with its hip-X motor
 defects and none were found; a layer of what appeared to be epoxy coating over the controller
 board frustrated any attempt to probe its test points, as contact could not be made without
 forcibly scraping the coating away. Because a purely visual inspection could not distinguish a
-mechanically-sound motor from a magnetically-faulty one, the investigation was framed around
-comparison with the healthy hind leg.
+mechanically sound motor from a magnetically faulty one, the investigation was framed around
+comparison with the healthy right hind leg.
 
 ![](../docs/assets/spot-opened.jpg){width=48%}
 
@@ -484,7 +489,7 @@ Both hind legs were then removed and their hip-X motor driver boards compared si
 (Figures 21 and 22). The two drivers were physically identical, with no sign of component
 degradation on either. Rotating each motor by hand confirmed that the encoder's diametric rotor
 magnet was firmly seated, rotated freely, and stood at an identical protrusion height on both
-sides — ruling out an obviously displaced or loose magnet as the cause.
+sides, ruling out an obviously displaced or loose magnet as the cause.
 
 ![](../docs/assets/both-legs-drivers.jpg){width=48%}
 
@@ -499,8 +504,8 @@ sides — ruling out an obviously displaced or loose magnet as the cause.
 Two swaps tested the driver electronics and the wiring. First, the left and right hip-X driver
 boards were exchanged and the legs refitted; on power-up no motor faults were reported, but the
 abnormal joint behaviour physically remained with the left socket rather than following the
-swapped board. Second, the hip-X motor cables were exchanged — after probing the connector PCBs
-to confirm they were not mirror images and that power and ground would map correctly — and again
+swapped board. Second, the hip-X motor cables were exchanged, after probing the connector PCBs
+to confirm they were not mirror images and that power and ground would map correctly, and again
 the abnormal behaviour stayed with the left socket while the other joint operated normally.
 Table 5 records the physical actions and observations; in both cases the diagnostic reading that
 accompanied the swap, and the inference drawn from it, are reported in [Ming, SS-TBD].
@@ -521,23 +526,28 @@ the remaining candidate, which motivated opening the motor itself.
 
 ## Motor disassembly — discovering the secondary encoder
 
-Each hip-X motor was disassembled to inspect its internal angle-sensing hardware. To isolate the
-hip-X (abduction) motor, the hip-Y (flexion) motor was first removed from the rotor housing by
-undoing four very tight torx screws, after which a flange serving as both cover and mechanical
-end-stop was freed by removing eight tight M3 hex screws; the X-motor assembly, held together
-without the flange only by a snug fit between the rotor bearing and housing, could then be
-pulled apart with some force. A notable construction detail was that the internal screws
-(beneath the flange, at the output shaft, and holding the stator) are numerically labelled,
-suggesting a defined tightening sequence to keep the rotor centred.
+Each hip-X motor was disassembled to further identify potential points of failure. To isolate
+the hip-X (abduction) motor, the hip-Y (flexion) motor was first removed from the rotor housing
+by undoing four very tight M5 Torx screws, after which a flange serving as both cover and
+mechanical end-stop was freed by removing eight torqued-down M3 hex screws; the X-motor
+assembly, held together without the flange only by a snug fit between the rotor bearing and
+housing, could then be pulled apart with some force. The hex screws used by Boston Dynamics
+were noted to be relatively soft, several stripping easily during disassembly. A further
+construction detail was that the internal screws on the aluminium plate holding the stator in
+place are numerically labelled, suggesting a defined tightening sequence to keep the rotor
+centred.
 
 The disassembly revealed the key architectural fact of the whole investigation: a **second Hall
-sensor**, an iC-Haus device, mounted beside the harmonic-drive stage (Figures 23 and 24) — the
-secondary output encoder introduced in the Background, which had not been visible in any earlier
-inspection. Because the driver and cable swaps had already cleared the electronics and wiring,
-and because the primary iC-MHM rotor encoder is a robust four-Hall device whose reading is
-insensitive to small magnet-placement deviations (the rotor magnet having already been shown
-well-seated on both sides), this newly-exposed secondary encoder became the primary hardware
-suspect for the abnormal joint behaviour.
+sensor**, also from iC-Haus (the iC-MU), mounted beside the harmonic-drive stage (Figures 23 and
+24). This was the secondary output encoder introduced in the Background, not visible in any
+earlier inspection. Because the driver and cable swaps had already cleared the electronics and
+wiring, and because the primary iC-MHM rotor encoder is a robust four-Hall device whose reading
+is insensitive to small magnet-placement deviations (the rotor magnet having already been shown
+well-seated on both sides), this newly exposed secondary encoder became the primary hardware
+suspect for the abnormal joint behaviour. The sensor tracks a 32-pole Nonius magnet ring mounted
+on the output of the harmonic drive, indicating that it is this encoder, not the motor-side
+iC-MHM used to commutate the BLDC drive pre-reduction, that is responsible for the actual
+joint-angle read-out.
 
 ![](../docs/assets/secondary-hall-sensor.jpg){width=48%}
 
@@ -551,10 +561,10 @@ output stage of the hip-X motor.
 ## The output-encoder swap
 
 The decisive swap concerned the output encoder itself. As a first step, the entire rotor
-assembly — main connector, encoder and force-feedback (load-cell) module together — was
-exchanged between the two hind hip-X sockets. This moved the abnormal behaviour to the right
-socket as intended, but it also raised a **load-cell hard fault**: the load cells are calibrated
-per joint, so swapping them was not admissible, and the fault prevented the motors from powering
+assembly, main connector, encoder and force-feedback (load-cell) module together, was exchanged
+between the two hind hip-X sockets. This moved the abnormal behaviour to the right socket as
+intended, but it also raised a **load-cell hard fault**: the load cells are calibrated per
+joint, so swapping them was not admissible, and the fault prevented the motors from powering
 on. The swap was therefore refined (Figure 25): only the **main connector PCB carrying the
 secondary output encoder** was exchanged, while each rotor and its load cell were returned to
 their original stator. The driver boards were likewise returned to their original sides.
@@ -566,17 +576,13 @@ output-encoder PCB was ultimately interchanged, with the load cells kept in thei
 joints.
 
 With the output-encoder PCBs interchanged between the hind hip-X sockets and the magnets held
-fixed, the load-cell fault disappeared and both joints thereafter responded to articulation —
-the previously frozen behaviour was gone (Figure 26). A residual mechanical offset remained on
-the left joint, measurable as a consistent difference in the joint's centre position relative to
-the opposite side when each leg was jogged by hand across its full range of motion; the
-per-joint offsets recorded in this way are given in Table 7. The physical range (the delta
-between the mechanical limits) was consistent across all four legs, indicating that the offset
-was a fixed calibration/seating shift rather than a change in travel. Because the mechanical
-resolution for correcting such an offset by re-clocking the rotor housing is coarse — only eight
-securing screws, hence 45° increments — no exact mechanical correction was attempted at the
-bench. The diagnostic interpretation of this swap — what the joint feedback showed and what it
-established about the fault — is reported in [Ming, SS-TBD].
+fixed, the load-cell fault disappeared and both joints thereafter responded to articulation: the
+previously frozen behaviour was gone (Figure 26). A residual mechanical offset remained on the
+left joint, measurable as a consistent difference in the joint's centre position relative to the
+opposite side when each leg was jogged by hand across its full range of motion; the per-joint
+offsets recorded in this way are given in Table 7. The physical range (the delta between the
+mechanical limits) was consistent across all four legs, indicating that the offset was a fixed
+calibration/seating shift rather than a change in travel.
 
 ![](../docs/assets/encoder-closeup.jpg){width=48%}
 
@@ -593,15 +599,15 @@ At the hardware level the swap sequence was conclusive in one specific sense: in
 secondary output-encoder PCB physically moved the abnormal behaviour between joints, whereas
 interchanging the drivers, cables, rotors and magnets did not. The fault therefore resides in a
 **physical hardware difference at the secondary output encoder**, and not in the driver, wiring,
-rotor or magnet. The electrical nature of that board — and the question of what, precisely, could
-differ between two nominally-identical encoders — is taken up in Section 7.
+rotor or diametric magnet. The electrical nature of that board, and the question of what,
+precisely, could differ between two nominally identical encoders, is taken up in Section 7.
 
 # Methodology 3 — Encoder electrical reverse-engineering
 
 Localising the fault to the secondary output-encoder board raised a hardware question that could
 only be answered by reverse-engineering the board's electrical design: what does the board
-consist of, how is it wired, and could a configuration or connection difference — rather than a
-dead component — explain the behaviour? This chapter reports that reverse-engineering: the
+consist of, how is it wired, and could a configuration or connection difference, rather than a
+dead component, explain the behaviour? This chapter reports that reverse-engineering: the
 board's components and pinout, the decoding of its configuration EEPROM, the routing that
 connects it to the rest of the actuator, and the bench attempt to read the sensor directly.
 
@@ -610,8 +616,8 @@ connects it to the rest of the actuator, and the bench attempt to read the senso
 The secondary output-encoder PCB carries three principal devices: the **iC-MU** Hall-IC itself,
 an **external EEPROM** holding its configuration, and an **RS-485/RS-422 differential
 transceiver** (an Analog Devices LTC2863 [6]) that carries the sensor's serial output off-board
-(Figure 27). A set of test pads exposes the EEPROM's SDA/SCL lines — presumably for programming
-— and, near the main connector, the transceiver's differential outputs and supply.
+(Figure 27). A set of test pads exposes the EEPROM's SDA/SCL lines, presumably for programming,
+together with the transceiver's differential outputs and supply near the main connector.
 
 ![](../data/electrical/assets/offset-enc-pcb-components.png){width=60%}
 
@@ -622,7 +628,7 @@ Probing established the board's wiring as a textbook **ExtSSI** slave node (Figu
 Table 6). Pin PA0 of the iC-MU is tied to ground, which selects the BiSS fall-back protocol; the
 transceiver's receiver output (RO) drives PA1 (the clock input, MA), and the transceiver's
 driver input (DI) is fed from PA3 (the slave data output, SLO); PA2 (slave in, SLI) is grounded,
-correct for a single un-chained slave. This is exactly the connection the iC-MU datasheet [5]
+correct for a single unchained slave. This is exactly the connection the iC-MU datasheet [5]
 prescribes for its `MODEA=7` ExtSSI mode, and it is consistent between the boards inspected.
 
 ![](../data/electrical/assets/pinout-connections.png){width=60%}
@@ -635,7 +641,7 @@ Table: **Table 6 —** iC-MU Port-A (ExtSSI, `MODEA=7`) pinout, as wired on the 
 |---|---|---|
 | PA0 | NPRES | tied to GND (selects BiSS fall-back) |
 | PA1 | MA (clock in) | ← LTC2863 RO |
-| PA2 | SLI (slave in) | GND (correct for a single, un-chained slave) |
+| PA2 | SLI (slave in) | GND (correct for a single, unchained slave) |
 | PA3 | SLO (data out) | → LTC2863 DI |
 
 ## Configuration-EEPROM decode
@@ -643,7 +649,7 @@ Table: **Table 6 —** iC-MU Port-A (ExtSSI, `MODEA=7`) pinout, as wired on the 
 To characterise the encoder's configuration, the contents of its external EEPROM were decoded
 against the iC-MU datasheet [5], register by register. Per the datasheet, the iC-MU attempts to
 load its configuration from this EEPROM three times at start-up and, failing that, boots on
-default values — with the fall-back output protocol selected by PA0 (LOW → BiSS). The decode
+default values, with the fall-back output protocol selected by PA0 (LOW → BiSS). The decode
 established that the stored configuration is a coherent, datasheet-normal ExtSSI set-up rather
 than anything corrupt or exotic: amplitude control is enabled (so the manual gain fields are
 intentionally inert), Port A is configured as ExtSSI and Port B as ABZ, the interpolation filter
@@ -661,28 +667,27 @@ Table: **Table 8 —** Selected iC-MU EEPROM configuration registers (full annot
 | `0x0B` | `07` | `MODEA=7`, `MODEB=0` | Port A = ExtSSI (NPRES/MA/SLI/SLO); Port B = ABZ. |
 | `0x0E` | `14` | `LIN=1`, `FILT=4` | Linear/radial scanning; FILT4 = 39 dB, 14-bit interpolation. |
 | `0x0F` | `05` | `MPC=5` | 32 master / 31 nonius periods; ≤19-bit absolute resolution. |
-| `0x13–0x14` | `FF 0F` | `RESABZ=0x0FFF` | ABZ resolution = (0x0FFF + 1) × 4 = 16 384 edges. |
-| `0x21–0x22` | `52 A8` | `CRC16` | Matches the CRC computed over the config ranges — configuration is intact. |
-| `0x3E–0x3F` | `69 43` | `MFG_ID` | `0x6943` = ASCII "iC" (iC-Haus). |
+| `0x13-0x14` | `FF 0F` | `RESABZ=0x0FFF` | ABZ resolution = (0x0FFF + 1) × 4 = 16 384 edges. |
+| `0x21-0x22` | `52 A8` | `CRC16` | Matches the CRC computed over the config ranges: configuration is intact. |
+| `0x3E-0x3F` | `69 43` | `MFG_ID` | `0x6943` = ASCII "iC" (iC-Haus). |
 
 The significance of this decode is that it removes configuration corruption from the list of
 possible faults at the hardware level: the board's programmed set-up is internally consistent
-and datasheet-normal. The complementary *comparative* result — the bench read that established
+and datasheet-normal. The complementary *comparative* result, the bench read that established
 the faulty and healthy encoders to be byte-identical in their stored configuration, and hence
-that the difference between them is physical rather than programmed — was performed on the signal
+that the difference between them is physical rather than programmed, was performed on the signal
 layer and is reported in [Ming, SS-TBD]; this report owns the decode, not that comparative read.
 
 ## Signal routing
 
 Probing to trace the sensor signals out to the main motor connector showed that no such route
 exists: none of the transceiver's differential A/B/Z/Y outputs reach the main connector.
-Instead, the secondary output encoder is
-wired **directly to the motor driver's STM32 microcontroller**, which consumes the post-reduction
-joint angle locally, formats feedback, and streams it to the main compute module over the
-driver's own CAN transceiver. This routing is a hardware finding in its own right, and it also
-explains — at the hardware level — why the driver, rather than the main computer, governs the
-joint's local behaviour; the control-loop *consequences* of that routing are a signal-layer
-matter and are discussed in [Ming, SS-TBD].
+Instead, the secondary output encoder is wired **directly to the motor driver's STM32
+microcontroller**, which consumes the post-reduction joint angle locally, formats feedback, and
+streams it to the main compute module over the driver's own CAN transceiver. This routing is a
+hardware finding in its own right, and it also explains, at the hardware level, why the driver
+rather than the main computer governs the joint's local behaviour; the control-loop
+*consequences* of that routing are a signal-layer matter and are discussed in [Ming, SS-TBD].
 
 ## Bench read attempt and its limit
 
@@ -706,8 +711,8 @@ section on the bench.
 The read did not succeed, and the reasons are themselves hardware findings. Establishing serial
 communication with the iC-MU over its RS-485/RS-422 transceiver required either a matching
 full-duplex four-wire transceiver or two standard RS-485 transceivers, neither of which was
-available. The alternative — driving the sensor with the motor driver's own STM32 and observing
-the transceiver output lines on an oscilloscope (Figure 32) — was blocked by a power issue:
+available. The alternative, driving the sensor with the motor driver's own STM32 and observing
+the transceiver output lines on an oscilloscope (Figure 32), was blocked by a power issue:
 although the driver's 5 V rail measured a correct 4.994 V, the 3.3 V rail that supplies the STM32
 sat at only about 0.4 V. Tracing the supply showed that the 5 V feeds an LT3029 LDO regulator [7]
 whose 3.3 V output was the dead rail, and that the LDO appeared to be enabled by another rail
@@ -729,10 +734,10 @@ transceiver lines, the driver STM32 remaining unpowered on its 3.3 V rail.
 One further electrical obstacle stood between the restored power system and any motor test, and
 it was resolved by reverse-engineering a connector. Enabling motor power raised an "uncovered
 payload port" stop function: Spot detects whether its DB25 payload-port covers are fitted, and
-one cover was missing. Inspection showed the cover contained no active components — only a mating
-DB25 shell — so the detection had to be passive. Probing the cover for continuity revealed that
+one cover was missing. Inspection showed the cover contained no active components, only a mating
+DB25 shell, so the detection had to be passive. Probing the cover for continuity revealed that
 **four sets of pins are shorted together** inside it, and replicating those shorts on the open
-port — first with tinned jumper wires, later with a female DB25 header wired to match — cleared
+port, first with tinned jumper wires, later with a female DB25 header wired to match, cleared
 the lockout and allowed motor power to be enabled. The pin-short map is given in Appendix D.
 
 # Evaluation, Limitations and Improvements
@@ -746,10 +751,10 @@ important finding is that the rebuild's reliability was governed almost entirely
 quality**: the same class of defect manifested first as cell-group imbalance and then as a
 battery-fault lockout from one disconnected joint, and both traced back to bends and stress
 points in the nickel-strip routing imposed by the first bracket design. The V2 pack turned that
-finding into a design improvement — added bracing, OEM-derived spacer positions, laser-cut
-slotted strips that avoid stacking, and captured-nut BMS mounting — and the result was a pack
-that welded cleanly and balanced correctly on the first attempt, assembled in a fraction of the
-time. Two limitations remain. The OEM phase-change thermal filler was not reproduced, because no
+finding into a design improvement: added bracing, OEM-derived spacer positions, laser-cut
+slotted strips that avoid stacking, and captured-nut BMS mounting. The result was a pack that
+welded cleanly and balanced correctly on the first attempt, assembled in a fraction of the time.
+Two limitations remain. The OEM phase-change thermal filler was not reproduced, because no
 workable off-the-shelf equivalent was found; the pack instead relies on the silicone thermal
 sheet and the retained NTC monitoring, and sourcing a suitable PCM is a clear improvement for a
 future build. And the pack #2 SoC repair depended on an improvised fastener (a cardboard shim in
@@ -789,7 +794,7 @@ constraint on any future in-situ electrical work.
 
 The hardware objectives of the project were met. Spot's power system was rebuilt from two dead
 modules into two modules that charge to a full, balanced state, by replacing the degraded cells
-with OEM-spec Samsung INR18650-30Q cells on the original BMS and — critically — by driving the
+with OEM-spec Samsung INR18650-30Q cells on the original BMS and, critically, by driving the
 rebuild's reliability through spot-weld quality and a second-generation bracket design. In
 parallel, the faulty hip-X actuator, a previously undocumented piece of hardware, was
 characterised from the outside in: its 50:1 harmonic-drive, dual-encoder construction was
@@ -800,7 +805,7 @@ narrowing the fault to a physical device difference rather than a programming or
 
 The skills developed span the rebuild and characterisation of lithium battery systems and their
 BMS, the mechanical teardown and reassembly of a precision harmonic-drive actuator, and the
-electrical reverse-engineering of a Hall-encoder PCB — including datasheet-level EEPROM decoding
+electrical reverse-engineering of a Hall-encoder PCB, including datasheet-level EEPROM decoding
 and pinout tracing. The principal thread of future work follows directly from the one hardware
 task that could not be completed: instrumenting the iC-MU sensor with the correct
 RS-485/RS-422 interface (or a powered, polled driver STM32) to read its raw output on the bench.
@@ -840,19 +845,19 @@ layer are the companion report's and are omitted.
 |---|---|---|
 | Battery diagnosis & decision to rebuild | Inspection → restoration attempt → disassembly & sourcing | 13, 20, 21 May |
 | Pack #1 design | Pack-design research; spacer CAD | 25 May |
-| Pack #1 assembly & welding | Assembly sessions 1–4 | 28, 29 May; 2, 4 Jun |
+| Pack #1 assembly & welding | Assembly sessions 1-4 | 28, 29 May; 2, 4 Jun |
 | Pack #1 test, fault-find & rework | Cell-group diagnosis + DB25 bypass; weld rework & verify | 5, 11 Jun |
 | Spot teardown / leg extraction | Teardown; pack #2 disassembly | 15 Jun |
 | Pack #2 (V2) | V2 design; assembly; SoC-cable repair & full charge | 16, 17, 18 Jun |
 | Actuator swaps | Driver & cable swaps | 18, 19 Jun |
 | Motor disassembly | Secondary encoder identified | 25 Jun |
 | Output-encoder swap | PCB-only swap; ROM/offset measurement | 30 Jun |
-| Encoder electrical RE | EEPROM decode; routing; bench read attempt | Jun–16 Jul |
+| Encoder electrical RE | EEPROM decode; routing; bench read attempt | Jun-16 Jul |
 
 ## Appendix B — iC-MU EEPROM configuration register map {.unnumbered}
 
 Full annotated decode of the external configuration EEPROM against the iC-MU datasheet [5]. Raw
-dump (hex), addresses `0x00`–`0x3F`:
+dump (hex), addresses `0x00`-`0x3F`:
 
 ```
 00000000 00 00 00 00 00 88 00 00 00 00 00 07 00 00 14 05
@@ -863,7 +868,7 @@ dump (hex), addresses `0x00`–`0x3F`:
 
 | Addr | Raw | Register / fields | Decoded setting |
 |---|---|---|---|
-| `0x00` | `00` | `GC_M`, `GF_M` | Master coarse/fine gain 0 (ignored — amplitude control enabled). |
+| `0x00` | `00` | `GC_M`, `GF_M` | Master coarse/fine gain 0 (ignored, amplitude control enabled). |
 | `0x01` | `00` | `GX_M` | Master cosine gain adjust = 1.000. |
 | `0x02` | `00` | `VOSS_M` | Master sine offset = 0 mV. |
 | `0x03` | `00` | `VOSC_M` | Master cosine offset = 0 mV. |
@@ -882,23 +887,23 @@ dump (hex), addresses `0x00`–`0x3F`:
 | `0x10` | `00` | `*_MT` | No external multiturn data; MT chain/verification disabled. |
 | `0x11` | `4E` | `OUT_ZERO=2`, `OUT_MSB=14` | Serial output inserts 2 zero bits; output MSB = user-data bit 27. |
 | `0x12` | `20` | `MODE_ST=2`, … | Binary output, no SSI ring; raw master/nonius track data; LSB = bit 0. |
-| `0x13–0x14` | `FF 0F` | `RESABZ=0x0FFF` | ABZ / FlexCount resolution = (0x0FFF + 1) × 4 = 16 384 edges. |
+| `0x13-0x14` | `FF 0F` | `RESABZ=0x0FFF` | ABZ / FlexCount resolution = (0x0FFF + 1) × 4 = 16 384 edges. |
 | `0x15` | `13` | `SS_AB=1`, `FRQAB=3`, … | AB step 1; startup counting visible; AB limit ≈ 781.25 kHz (320 ns edge distance). |
 | `0x16` | `10` | `LENZ`, `CHYS_AB=1`, `PP60UVW`, `INV_*` | Z index = 90°; AB hysteresis 0.175°; UVW 120°; A/B/Z not inverted. |
 | `0x17` | `02` | `RPL=0`, `PPUVW=2` | Config mode, no restriction; UVW commutation = 1 pole pair. |
 | `0x18` | `00` | `TEST` | Normal mode. |
-| `0x19–0x20` | `00` | `SPO_BASE`, `SPO_0…14` | Nonius track-offset slopes all zero. |
-| `0x21–0x22` | `52 A8` | `CRC16` | 0x52A8 — matches CRC over config ranges 0x00–0x20, 0x30–0x3F. |
-| `0x23–0x27` | `FF` | `OFF_ABZ` | Absolute-output offset block reads erased (unused). |
-| `0x28–0x29` | `FF FF` | `OFF_UVW` | UVW offset reads erased. |
-| `0x2A–0x2E` | `FF` | `PRES_POS` | Preset position reads erased. |
+| `0x19-0x20` | `00` | `SPO_BASE`, `SPO_0…14` | Nonius track-offset slopes all zero. |
+| `0x21-0x22` | `52 A8` | `CRC16` | 0x52A8, matches CRC over config ranges 0x00-0x20, 0x30-0x3F. |
+| `0x23-0x27` | `FF` | `OFF_ABZ` | Absolute-output offset block reads erased (unused). |
+| `0x28-0x29` | `FF FF` | `OFF_UVW` | UVW offset reads erased. |
+| `0x2A-0x2E` | `FF` | `PRES_POS` | Preset position reads erased. |
 | `0x2F` | `FF` | `CRC8` | Does not match posted offset/preset bytes (block unused). |
 | `0x30` | `00` | `PA0_CONF` | Falling edge on NPRES = NO_FUNCTION. |
 | `0x31` | `00` | `EDSBANK` | No EDS. |
-| `0x32–0x33` | `00 00` | `PROFILE_ID` | 0x0000. |
-| `0x34–0x37` | `00` | `SERIAL` | 0x00000000. |
-| `0x38–0x3D` | `4D 55 07 00 00 00` | `DEV_ID` | ASCII "MU", then 0x07 00 00 00. |
-| `0x3E–0x3F` | `69 43` | `MFG_ID` | 0x6943 = ASCII "iC" (iC-Haus). |
+| `0x32-0x33` | `00 00` | `PROFILE_ID` | 0x0000. |
+| `0x34-0x37` | `00` | `SERIAL` | 0x00000000. |
+| `0x38-0x3D` | `4D 55 07 00 00 00` | `DEV_ID` | ASCII "MU", then 0x07 00 00 00. |
+| `0x3E-0x3F` | `69 43` | `MFG_ID` | 0x6943 = ASCII "iC" (iC-Haus). |
 
 ## Appendix C — Encoder-board pinout {.unnumbered}
 
