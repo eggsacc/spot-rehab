@@ -56,16 +56,16 @@ NIL
 
 Final layout in the PCB editor — 4× 2mm corner mounting holes, silkscreen title. (Status bar reads "Unrouted 3" only because the GND net's copper was hidden for track visibility in this screenshot — the saved board reports 0 unrouted; 3 = exactly the 4-pad tab net's connection count.)
 
-<img src="assets/fx23-breakout-final-layout.png" width="700"/>
+<img src="../assets/fx23-breakout-final-layout.png" width="700"/>
 
 Overview — final layout alongside the revised 28-pin schematic and the 3D preview:
 
-<img src="assets/fx23-breakout-final-overview.png" width="700"/>
+<img src="../assets/fx23-breakout-final-overview.png" width="700"/>
 
 Final 3D render, top side — TP1–TP24 and the four corner holes:
 
-<img src="assets/fx23-breakout-final-3d-top.png" width="700"/>
+<img src="../assets/fx23-breakout-final-3d-top.png" width="700"/>
 
 Final 3D render with the FX23 connector model mounted (the `REF**` texts are the deliberately-left mounting-hole references; the small white dot near TP16 is part of the FX23 footprint artwork):
 
-<img src="assets/fx23-breakout-final-3d-connector.png" width="700"/>
+<img src="../assets/fx23-breakout-final-3d-connector.png" width="700"/>

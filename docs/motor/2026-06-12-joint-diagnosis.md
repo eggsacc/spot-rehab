@@ -42,7 +42,7 @@ Further testing of all actuators to confirm the faulty leg and motor, running a 
 We visualised the movement of the spot joints on the admin console visualiser whilst moving all the legs.
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/visualiser-test.MOV" type="video/mp4">
+    <source src="../assets/visualiser-test.MOV" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
@@ -55,7 +55,7 @@ We visualised the movement of the spot joints on the admin console visualiser wh
 - We activated motor lock out to further test this hypothesis.
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/motor-lockout.MOV" type="video/mp4">
+    <source src="../assets/motor-lockout.MOV" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
@@ -76,14 +76,14 @@ We visualised the movement of the spot joints on the admin console visualiser wh
 Graphical visualisation:
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/graph-test.MOV" type="video/mp4">
+    <source src="../assets/graph-test.MOV" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
 
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width='780' height='480' controls>
-    <source src="assets/graph-analysis.mp4" type="video/mp4">
+    <source src="../assets/graph-analysis.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
@@ -91,14 +91,14 @@ Graphical visualisation:
 Raw data visualisation:
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/data-test.MOV" type="video/mp4">
+    <source src="../assets/data-test.MOV" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
 
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width='780' height='480' controls>
-    <source src="assets/data-analysis.mp4" type="video/mp4">
+    <source src="../assets/data-analysis.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>

@@ -103,21 +103,21 @@ This session's magnet-swap approach supersedes the two "Next steps" items left o
 Spotcheck:
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/spotcheck-1.MOV" type="video/mp4">
+    <source src="../assets/spotcheck-1.MOV" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
 
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/spotcheck-2.MOV" type="video/mp4">
+    <source src="../assets/spotcheck-2.MOV" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
 
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/spotcheck-3.MOV" type="video/mp4">
+    <source src="../assets/spotcheck-3.MOV" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
@@ -125,7 +125,7 @@ Spotcheck:
 Walking test:
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/walking.MOV" type="video/mp4">
+    <source src="../assets/walking.MOV" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>

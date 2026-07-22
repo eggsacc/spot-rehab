@@ -72,14 +72,14 @@ NIL
 Standing test:
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/stand-test.MOV" type="video/mp4">
+    <source src="../assets/stand-test.MOV" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
 
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width='780' height='480' controls>
-    <source src="assets/stand-test.mp4" type="video/mp4">
+    <source src="../assets/stand-test.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
@@ -87,14 +87,14 @@ Standing test:
 Joint test:
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/joint-test-flipped.MOV" type="video/mp4">
+    <source src="../assets/joint-test-flipped.MOV" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
 
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width='780' height='480' controls>
-    <source src="assets/joint-test-flipped-graph.mp4" type="video/mp4">
+    <source src="../assets/joint-test-flipped-graph.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>

@@ -84,16 +84,16 @@ Hirose's own datasheet explicitly warns against relying on the connector alone t
 
 Schematic — J1 (28-pin) + 24 TestPoint symbols + tab GND tie:
 
-<img src="assets/fx23-breakout-schematic.png" width="700"/>
+<img src="../assets/fx23-breakout-schematic.png" width="700"/>
 
 2-layer routed layout — FX23 on bottom, TestPoints on top:
 
-<img src="assets/fx23-breakout-layout.png" width="700"/>
+<img src="../assets/fx23-breakout-layout.png" width="700"/>
 
 3D render, top side, TP1–TP24 labeled:
 
-<img src="assets/fx23-breakout-3d-top.png" width="700"/>
+<img src="../assets/fx23-breakout-3d-top.png" width="700"/>
 
 3D render with the FX23 connector model mounted:
 
-<img src="assets/fx23-breakout-3d-connector.png" width="700"/>
+<img src="../assets/fx23-breakout-3d-connector.png" width="700"/>

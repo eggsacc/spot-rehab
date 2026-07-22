@@ -116,37 +116,37 @@ Everything observed (inward gait, misreads, recovery stances) is downstream of *
 
 New iC-MU chip reworked onto the original eL board (`MU Y2H C 12T 223504`; RS-485 transceiver below it; flux residue from the rework still visible):
 
-<img src="assets/encoder-board-new-icmu-chip.jpg" width="400"/>
+<img src="../assets/encoder-board-new-icmu-chip.jpg" width="400"/>
 
 Chip rework at the Hakko FR-810B hot-air station over a preheater plate:
 
-<img src="assets/icmu-chip-rework-station.jpg" width="400"/>
+<img src="../assets/icmu-chip-rework-station.jpg" width="400"/>
 
 FX23 connector reflowed onto the breakout board (EDIC HP15 hotplate, 230°C):
 
-<img src="assets/fx23-breakout-connector-reflow.jpg" width="400"/>
+<img src="../assets/fx23-breakout-connector-reflow.jpg" width="400"/>
 
 #### Faults & SpotCheck
 
 Boot fault — `hr.hx` value out of bounds (too low), pre-SpotCheck:
 
-<img src="assets/hr-hx-out-of-bounds-boot.jpg" width="400"/>
+<img src="../assets/hr-hx-out-of-bounds-boot.jpg" width="400"/>
 
 SpotCheck run 1 (post-rebuild) and run 2 (post cold power cycle) — both hind hip-X `[E]`:
 
-<img src="assets/spotcheck-run1-offset-table.jpg" width="400"/>
-<img src="assets/spotcheck-run2-offset-table.jpg" width="400"/>
+<img src="../assets/spotcheck-run1-offset-table.jpg" width="400"/>
+<img src="../assets/spotcheck-run2-offset-table.jpg" width="400"/>
 
 Mid-walk "Sensor misread" faults — active and historic views (both hind hip-X):
 
-<img src="assets/sensor-misread-active.jpg" width="400"/>
-<img src="assets/sensor-misread-historic.jpg" width="400"/>
+<img src="../assets/sensor-misread-active.jpg" width="400"/>
+<img src="../assets/sensor-misread-historic.jpg" width="400"/>
 
 Walking gait — note the hind legs angling inward under the body:
 
 <div align="left">
   <video width="360" height="640" controls>
-    <source src="assets/walking-gait-inward.mp4" type="video/mp4">
+    <source src="../assets/walking-gait-inward.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
