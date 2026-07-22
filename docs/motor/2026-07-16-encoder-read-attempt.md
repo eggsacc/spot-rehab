@@ -61,6 +61,15 @@ Failed to read IC-MU sensor over RS422 due to lack of hardware transceivers. The
 - [x] Reassemble Spot
 
 ## Media
-![alt text](../assets/testpad-map.png)
-![alt text](../assets/flex-pcb-testpad-soldering.jpg)
-![alt text](../assets/oscilloscope-test.jpg)
+
+Test-pad map on the flex PCB — `A/B/Y/Z` differential pairs plus `+5V`/`GND` beside the main connector:
+
+<img src="../assets/testpad-map.png" width="700"/>
+
+Wires soldered to the flex-PCB test pads:
+
+<img src="../assets/flex-pcb-testpad-soldering.jpg" width="400"/>
+
+Oscilloscope hooked to the `A` and `Y` signal lines — no edges detected on either:
+
+<img src="../assets/oscilloscope-test.jpg" width="400"/>

@@ -93,4 +93,4 @@ Continued from the [01-07 log's](2026-07-01-spotcheck-diagnosis.md) timeline; `N
 
 SpotCheck run 3 (boards swapped) — all deltas exactly 0.00, both hind hip-X still `[E]`:
 
-<img src="assets/spotcheck-run3-offset-table.jpg" width="400"/>
+<img src="../assets/spotcheck-run3-offset-table.jpg" width="400"/>

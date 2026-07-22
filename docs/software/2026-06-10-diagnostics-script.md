@@ -14,7 +14,7 @@
 
 **Resources:**
 >[`spot_diagnostics` package repo](https://github.com/Kmyming/spot_diagnostics)
->[ROS2 Jazzy setup (the upgrade this reverses)](/docs/software/2026-05-26-ros2-jazzy-setup.md)
+>[ROS2 Jazzy setup (the upgrade this reverses)](2026-05-26-ros2-jazzy-setup.md)
 >[rai-opensource spot_ros2 wrapper](https://github.com/rai-opensource/spot_ros2)
 
 ****

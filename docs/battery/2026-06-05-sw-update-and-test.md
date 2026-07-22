@@ -101,7 +101,7 @@ After probing around the DB25 interface connector cover piece to test for contin
 ## Media
 <div style="display: flex; justify-content: center; margin: 2em 0;">
   <video width="360" height="480" controls>
-    <source src="assets/flipped-self-right.mp4" type="video/mp4">
+    <source src="../assets/flipped-self-right.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 </div>
