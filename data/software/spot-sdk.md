@@ -1,6 +1,6 @@
 # Spot SDK: architecture and client flow
 
-Spot is effectively a black box. There is no SSH into it and we do not know the onboard compute specs. Everything we do from our own computer goes over the network to the robot, so the whole SDK is understood through one idea: the robot runs a set of gRPC services, and our program is a gRPC client of those services. This page covers the software stack, the key terms with code, the mandatory startup procedure every controlling program has to follow, and one full worked example.
+Spot is effectively a black box. There is no SSH into it and we do not know the onboard compute specs. Everything we do from our own computer goes over the network to the robot, so the whole SDK is understood through one idea: the robot runs a set of gRPC services, and our program is a gRPC client of those services. This page covers the software stack, the whole vocabulary in code (from a single call up to a mission behavior tree), the mandatory startup procedure every controlling program has to follow, and one full worked example.
 
 For how this compares to the ROS 2 wrapper and Autowalk, see [SDK vs Autowalk vs spot_ros2](sdk-vs-autowalk-vs-ros2.md).
 
@@ -35,21 +35,39 @@ The `Robot` object abstracts the client-server gRPC layer. We query its director
 
 Our `spot_ros2` wrapper tracks SDK **5.0.1**, and the robot ran firmware **V5.1.6**, so keep the client and robot versions aligned.
 
-## Key terms (with code)
+## The stack, end to end (key terms in code)
 
-The whole API is a small set of terms. The table maps each one, and the code below shows the same idea in a plain example and then in Spot.
+Everything the robot exposes is gRPC services made of protobuf messages, and everything we build to control it is those same messages. Read the whole vocabulary first, then the command / node / behavior-tree examples that use it, then the data flow of a single call.
+
+### The vocabulary
 
 | Term | What it is | Spot example |
 |---|---|---|
-| **gRPC** | Google Remote Procedure Call. A cross-platform framework for server-to-client calls. The robot is the server, our app is the client. | robot answers on WiFi at `192.168.80.3` |
-| **Protobuf (`.proto`)** | The interface definition language. A `.proto` file declares the services and message types. It fixes the interface (inputs and calls), not the implementation. | `bosdyn/api/*.proto` |
-| **Service** | A named group of RPCs the robot offers. | `RobotState`, `RobotCommand`, `Image` |
-| **RPC / method** | One callable operation on a service. In Python it is a client method, underneath it is a remote call. | `GetRobotState`, `RobotCommand` |
-| **Message** | The typed input or output of an RPC, built from fields. | `RobotStateRequest`, `BatteryState` |
-| **Client** | Our side's object for talking to one service (the phone for one department). It hides the networking. Obtained from the `Robot` object. | `RobotStateClient` |
-| **Object** | A built message instance we pass around. | a `RobotCommand` from `RobotCommandBuilder` |
+| **gRPC** | Google Remote Procedure Call, a cross-platform client-server call framework. The robot is the server, our app is the client. | robot answers on WiFi at `192.168.80.3` |
+| **Protobuf (`.proto`)** | The interface definition language. A `.proto` file declares the services and message types; it fixes the interface (inputs and calls), not the implementation. | `bosdyn/api/*.proto` |
+| **Service** | A named bundle of RPCs the robot offers. | `RobotCommandService`, `RobotState`, `Image` |
+| **RPC / method** | A *verb* — one callable action that runs on the robot, invoked over the network. Declared `rpc Name(RequestMessage) returns (ResponseMessage)`. In Python it is a client method. | `RobotCommand`, `GetRobotState`, `LoadMission` |
+| **Message** | A *noun* — passive typed data, the input or output of an RPC, built from fields. It does nothing; it just holds data. | `RobotCommandRequest`, `BatteryState`, `Node`, `Walk` |
+| **Client** | Our side's object for talking to one service (the phone for one department); it hides the networking. Obtained from the `Robot` object. | `RobotCommandClient`, `RobotStateClient` |
+| **Object** | A built message instance we pass around. | a `RobotCommand` payload from `RobotCommandBuilder` |
+| **`oneof`** | A protobuf "exactly one of these" union: several fields where at most one may be set, and setting one clears the rest. It is why commands nest. | `RobotCommand` = `full_body_command` \| `synchronized_command` |
+| **`.Request` / `.Feedback`** | Nested messages *inside* a command message: the params to *issue* it, and the status it *reports back*. | `StandCommand.Request`, `StandCommand.Feedback` |
+| **Generated module (`*_pb2`)** | The Python module `protoc` produces from one `.proto` file. | `robot_command_pb2`, `nodes_pb2` |
+| **Node** | The atom of a *mission* behavior tree — a polymorphic `Node` wrapper, each one a single kind (sequence, selector, a command, a nav). | `nodes_pb2.Node` |
+| **Element** | The atom of an *autowalk* — one "go here, do this" step: a target waypoint + an action + failure/battery behaviours. A `Walk` is a list of Elements; compiling turns each into a `Node` subtree. | `walks_pb2.Walk.elements` |
 
-The canonical protobuf example is a Greeter service with one RPC:
+**Naming convention.** Types are `CamelCase` (`BosdynRobotCommand`), fields are `snake_case` (`bosdyn_robot_command`), modules are `snake_case` + `_pb2`. So `bosdyn_robot_command` is the field that *holds* a `BosdynRobotCommand` message — the same word in two cases, which is why the code reads as repetitive.
+
+### RPC vs message (and the overloaded name `RobotCommand`)
+
+An **RPC is a verb** — an action that runs on the robot: `RobotCommand`, `LoadMission`, `PlayMission`, `ListWorldObjects`. A **message is a noun** — passive data that does nothing on its own. The relationship is that every RPC takes exactly one request message and returns one response message, exactly like a Python function:
+
+```python
+def robot_command(request: RobotCommandRequest) -> RobotCommandResponse:
+    ...
+```
+
+The function itself is the RPC; the parameter and return value are messages. Nothing executes while we build messages — execution happens only when an RPC carries them. The canonical protobuf shape is a Greeter service with one RPC:
 
 ```proto
 service Greeter {
@@ -59,18 +77,128 @@ message HelloRequest { string name = 1; }             // message = the input
 message HelloReply   { string message = 1; }          // message = the output
 ```
 
-Spot follows the same shape, and Boston Dynamics splits it across two files: a `*_service.proto` holding only the service and its RPCs, and a data `.proto` holding only the message types.
+Boston Dynamics splits Spot's version across two files: a `*_service.proto` holding only the service and its RPCs, and a data `.proto` holding only the message types.
 
 ```proto
-// robot_state_service.proto  (the SERVICE, RPCs only)
-service RobotState {
-  rpc GetRobotState (RobotStateRequest) returns (RobotStateResponse);
+// robot_command_service.proto  (the SERVICE, RPCs only)
+service RobotCommandService {
+    rpc RobotCommand(RobotCommandRequest) returns (RobotCommandResponse);
 }
-// robot_state.proto  (the DATA, message types only)
-message BatteryState { /* charge_percentage, voltage, temperatures, ... */ }
+// robot_command.proto  (the DATA, message types only)
+message RobotCommandRequest {
+    RequestHeader header = 1;
+    Lease         lease  = 2;
+    RobotCommand  command = 3;          // <-- the command payload is nested here
+    string        clock_identifier = 4;
+}
+message RobotCommand {                  // the payload: the actual command
+    oneof command {
+        FullBodyCommand.Request     full_body_command    = 1;
+        SynchronizedCommand.Request synchronized_command = 3;
+    }
+}
+message RobotCommandResponse {
+    ResponseHeader header = 1;
+    // ...
+    uint32 robot_command_id = 5;        // what we poll for feedback
+}
 ```
 
-At runtime we never touch the protos directly. We use the generated client class, and each method call is really the matching RPC:
+This is where the name `RobotCommand` trips people up — it labels **three different things**:
+
+| Name | What it is | Defined in |
+|---|---|---|
+| `RobotCommand` | the **RPC** (the action) | `robot_command_service.proto` |
+| `RobotCommandRequest` / `RobotCommandResponse` | the RPC's **envelope** messages (what the service literally takes and returns) | `robot_command.proto` |
+| `RobotCommand` | the **payload** message (the command content we build) | `robot_command.proto` |
+
+The request is *not* the payload — it **wraps** it. `RobotCommandRequest` holds `header`, `lease`, `clock_identifier`, and a `RobotCommand command` field. That inner `RobotCommand` is the thing we assemble (the full-body/synchronized oneof) and what `RobotCommandBuilder` returns; the RPC is named after the payload it carries.
+
+We never see `RobotCommandRequest` in our own code because the client hides it. `command_client.robot_command(cmd)` takes our `RobotCommand` payload, wraps it in a `RobotCommandRequest` (auto-filling `header`, `lease`, `clock_identifier`), calls the `RobotCommand` RPC, receives a `RobotCommandResponse`, and hands back the `robot_command_id`. The payload is a standalone message on purpose — the same `RobotCommand` also slots into the mission node `BosdynRobotCommand.command`, so building it serves both the live RPC path and a behavior tree.
+
+> Two different messages both end in "Request": the RPC envelope `RobotCommandRequest` (wraps the payload plus lease/header) versus a command's own parameters `StandCommand.Request` (the stand's arguments, nested inside the payload). Different messages, same suffix.
+
+### A command is deeply nested (and why)
+
+A `RobotCommand` *payload* is built inside-out because the command API is generic. The full manual construction of a stand is four `oneof` layers:
+
+```python
+from bosdyn.api import basic_command_pb2, mobility_command_pb2
+from bosdyn.api import synchronized_command_pb2, robot_command_pb2
+
+request = basic_command_pb2.StandCommand.Request()                       # the stand parameters
+mobility = mobility_command_pb2.MobilityCommand.Request(                 # pick "stand" among mobility commands
+    stand_request=request)
+synchronized = synchronized_command_pb2.SynchronizedCommand.Request(     # coordinate arm+gripper+mobility
+    mobility_command=mobility)
+robot_command = robot_command_pb2.RobotCommand(                          # the payload: full-body vs synchronized
+    synchronized_command=synchronized)
+```
+
+Read outward: a stand is a *mobility* command, which is a *synchronized* command (mobility, arm and gripper in lockstep), which is a *robot* command. Each layer is a oneof selecting one alternative. We almost never write this by hand — **`RobotCommandBuilder` collapses all four layers into one call:**
+
+```python
+from bosdyn.client.robot_command import RobotCommandBuilder
+robot_command = RobotCommandBuilder.synchro_stand_command()             # same RobotCommand payload, one line
+```
+
+The builder has `synchro_stand_command` (with body-pose and height args), `synchro_sit_command`, `synchro_se2_trajectory_command` (an in-place yaw or a pose move), and more. The verbose version is only worth seeing once, to understand what the builder assembles underneath.
+
+### Wrapping a command in a mission node
+
+The mission service runs **behavior trees**. Their atom is `nodes_pb2.Node`, a generic polymorphic wrapper: every node is a `Node` whose `oneof type` selects the kind (`bosdyn_robot_command`, `bosdyn_navigate_to`, `sequence`, `selector`, ...). (This is the mission-tree atom; the autowalk atom is instead an `Element` — navigate to a target, perform an action, with failure and battery behaviors.) To put a command in the tree, wrap the `RobotCommand` payload in a `BosdynRobotCommand` node, then in a `Node`:
+
+```python
+from bosdyn.api.mission import nodes_pb2
+
+stand = nodes_pb2.BosdynRobotCommand(
+    service_name='robot-command',       # the RobotCommandService
+    host='localhost',                   # the robot itself (the mission runs on-robot)
+    command=robot_command)              # the RobotCommand payload from above
+
+stand_node = nodes_pb2.Node(name='Just stand')
+stand_node.bosdyn_robot_command.CopyFrom(stand)     # bosdyn_robot_command is field 19 in Node's oneof
+```
+
+`CopyFrom` is needed because `bosdyn_robot_command` is a message field inside a oneof: protobuf does not allow assigning a message straight to it (`node.bosdyn_robot_command = stand` raises). `CopyFrom` copies the fields in and activates that branch. Passing it as a constructor keyword (`nodes_pb2.Node(name='Just stand', bosdyn_robot_command=stand)`) is the equivalent shorthand.
+
+### Assembling nodes into a tree
+
+Structural nodes hold children, so a whole routine is just nesting `Node`s. Following the mission-service example (stand, then sit):
+
+```python
+def command_node(name, robot_command):
+    node = nodes_pb2.Node(name=name)
+    node.bosdyn_robot_command.CopyFrom(nodes_pb2.BosdynRobotCommand(
+        service_name='robot-command', host='localhost', command=robot_command))
+    return node
+
+stand_node = command_node('Stand', RobotCommandBuilder.synchro_stand_command())
+sit_node   = command_node('Sit',   RobotCommandBuilder.synchro_sit_command())
+
+seq = nodes_pb2.Sequence()                          # runs children in order until one fails
+seq.children.extend([stand_node, sit_node])         # Sequence.children is repeated Node
+
+root = nodes_pb2.Node(name='stand then sit')
+root.sequence.CopyFrom(seq)                          # root is a Node wrapping the Sequence
+```
+
+`root` is now a complete behavior tree. We send it to the robot with the Mission service, not the command service:
+
+```python
+from bosdyn.mission.client import MissionClient
+mission_client = robot.ensure_client(MissionClient.default_service_name)
+mission_client.load_mission(root, leases=[...])      # LoadMission RPC
+mission_client.play_mission(pause_time_secs, leases=[...])   # PlayMission RPC
+```
+
+The same pattern scales: swap `command_node` for `BosdynNavigateTo` nodes to move between waypoints, wrap a `Sequence` in a `Selector` for branching, or in a `Repeat` to loop. Our patrol mission is built exactly this way; the full design (loop, battery safe-stop, fiducial-conditional dance) is in the wiki page *Autowalk and Mission - Patrol Sequence Development*.
+
+### What a client is, and the data flow of one call
+
+With the vocabulary in place, here is what actually happens on the wire for a single call. The robot is the server. It runs a set of separate services, each doing one job: RobotState (health, battery, joint angles), Image (cameras), RobotCommand (movement), Docking, and so on. Think of them as departments inside the robot, each with its own phone line.
+
+A **client** is our side's phone for one of those departments — an object in our own program that knows how to talk to exactly one service. We get each one from the `Robot` object with `robot.ensure_client(...)`, then call a method, which is really the matching RPC:
 
 ```python
 state_client = robot.ensure_client(RobotStateClient.default_service_name)
@@ -78,13 +206,7 @@ state = state_client.get_robot_state()          # calls the GetRobotState RPC
 print(state.battery_states[0].charge_percentage)
 ```
 
-### What a client is, and the data flow of one call
-
-The robot is the server. It runs a set of separate services, each doing one job: RobotState (health, battery, joint angles), Image (cameras), RobotCommand (movement), Docking, and so on. Think of them as departments inside the robot, each with its own phone line.
-
-A **client** is our side's phone for one of those departments. It is an object in our own program that knows how to talk to exactly one service. `RobotStateClient` calls the RobotState department, `ImageClient` calls the camera department, `RobotCommandClient` calls the movement department. We get each one from the `Robot` object with `robot.ensure_client(...)`.
-
-When we call a method on a client, the client does all the network plumbing for us. It packs our request into a protobuf message, sends it over WiFi as a gRPC call to that service on the robot, waits for the reply, and unpacks it back into a Python object. From our side it looks like a normal local method call.
+The client does all the network plumbing: it packs our request into a protobuf message, sends it over WiFi as a gRPC call to that service, waits for the reply, and unpacks it back into a Python object. From our side it looks like a normal local method call.
 
 ```mermaid
 sequenceDiagram
@@ -100,9 +222,26 @@ sequenceDiagram
     Client-->>App: RobotState object
 ```
 
-This is why there is one client per service rather than one big Spot object: we do not call the robot as a whole, we call the specific service we want something from, and the client is the object that knows how to reach that one service.
+This is why there is one client per service rather than one big Spot object: we do not call the robot as a whole, we call the specific service we want something from, and the client is the object that knows how to reach that one service. The mental model is: find the service in the proto list to see what Spot can do, then call the matching method on that service's client. The SDK's protobuf reference page is the low-level index of everything the robot exposes.
 
-So the mental model is: find the service in the proto list to see what Spot can do, then call the matching method on that service's client. The SDK's protobuf reference page is the low-level index of everything the robot exposes.
+## Local setup (install and connect)
+
+**No Linux required** — the SDK is pure Python and runs on Windows, macOS and Linux. (Only the ROS 2 tooling needs Linux/Docker.)
+
+1. **Python 3** — install 3.10 (the SDK supports a 3.8+ range).
+2. **Virtual environment:** `python -m venv spot-venv` then activate it (`spot-venv\Scripts\activate` on Windows).
+3. **Install the client + mission libraries, version-matched to the robot** (~V5.1.x — confirm in the tablet *About* / admin console; a major-version mismatch causes proto incompatibilities):
+   ```
+   pip install bosdyn-client==5.1.0 bosdyn-mission==5.1.0 bosdyn-api==5.1.0
+   ```
+4. **Runnable examples** (not on pip) live in the repo — clone it if you want `hello_spot`, `edit_autowalk`, etc.: `git clone https://github.com/boston-dynamics/spot-sdk.git`.
+
+To connect and control:
+
+- **Network** — put the laptop on the same network as Spot: its WiFi AP (robot IP `192.168.80.3` by default), the rear ethernet port, or Spot's LAN IP. That address is `ROBOT_IP`.
+- **Credentials** — `set BOSDYN_CLIENT_USERNAME=<user>` / `set BOSDYN_CLIENT_PASSWORD=<pass>` so scripts pick them up without prompting.
+- **E-Stop** — motors will not power without an active E-Stop endpoint: keep the **tablet** connected as the E-Stop, or run the SDK's `estop_gui` example as a second endpoint.
+- **Localization** (for GraphNav / missions) — a **fiducial must be visible from the start waypoint** when the run begins.
 
 ## Mandatory startup procedure
 
